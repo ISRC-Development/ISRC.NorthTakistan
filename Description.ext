@@ -1,0 +1,816 @@
+
+
+class SensorTemplatePassiveRadar;
+class SensorTemplateAntiRadiation;
+class SensorTemplateActiveRadar;
+class SensorTemplateIR;
+class SensorTemplateVisual;
+class SensorTemplateMan;
+class SensorTemplateLaser;
+class SensorTemplateNV;
+class SensorTemplateDataLink;
+class DefaultVehicleSystemsDisplayManagerLeft
+{
+	class components;
+};
+class DefaultVehicleSystemsDisplayManagerRight
+{
+	class components;
+};
+class VehicleSystemsTemplateLeftPilot: DefaultVehicleSystemsDisplayManagerLeft
+{
+	class components;
+};
+class VehicleSystemsTemplateRightPilot: DefaultVehicleSystemsDisplayManagerRight
+{
+	class components;
+};
+class CfgAmmo
+{
+	class MissileCore;
+	class MissileBase: MissileCore
+	{
+		class Components;
+	};
+	class gbs_ammo_Missile_LongRangeAABase: MissileBase
+	{
+		model="\A3\weapons_f\empty";
+		proxyShape="\A3\weapons_f\empty";
+		hit=400;
+		indirectHit=90;
+		indirectHitRange=30;
+		warheadName="HE";
+		proximityExplosionDistance=40;
+		fuseDistance=100;
+		maneuvrability=25;
+		airFriction=0.090000004;
+		sideAirFriction=0.18000001;
+		trackOversteer=0.69999999;
+		trackLead=1.0599999;
+		timeToLive=55;
+		initTime=0.1;
+		thrustTime=20;
+		thrust=450;
+		maxSpeed=3457.44; // mach 2.8 // gotta go fasssssttttt!
+		simulationStep=0.001;
+		activeSensorAlwaysOn=0;
+		airLock=2;
+		lockType=0;
+		cmimmunity=0.94999999;
+		weaponLockSystem="8 + 16";
+		maxcontrolRange=16000;
+		missileLockCone=70;
+		missileKeepLockedCone=90;
+		missileLockMaxDistance=16000;
+		missileLockMinDistance=1000;
+		missileLockMaxSpeed=777.77802;
+		autoSeekTarget=1;
+		flightProfiles[]=
+		{
+			"LoalDistance"
+		};
+		class LoalDistance
+		{
+			lockSeekDistanceFromParent=25000; // distance from target where missile will seek target from parent
+		};
+		class Components: Components
+		{
+			class SensorsManagerComponent
+			{
+				class Components
+				{
+					class ActiveRadarSensorComponent: SensorTemplateActiveRadar
+					{
+						class AirTarget
+						{
+							minRange=16000;
+							maxRange=16000;
+							objectDistanceLimitCoef=-1;
+							viewDistanceLimitCoef=-1;
+						};
+						class GroundTarget
+						{
+							minRange=8000;
+							maxRange=8000;
+							objectDistanceLimitCoef=-1;
+							viewDistanceLimitCoef=-1;
+						};
+						groundNoiseDistanceCoef=0.2;
+						maxGroundNoiseDistance=50;
+						minSpeedThreshold=30;
+						maxSpeedThreshold=40;
+						minTrackableATL=10;
+						maxTrackableATL=1e+010;
+						minTrackableSpeed=-1e+010;
+						maxTrackableSpeed=777.77802;
+						angleRangeHorizontal=120;
+						angleRangeVertical=120;
+					};
+					class DataLinkSensorComponent: ActiveRadarSensorComponent
+					{
+						componentType="DataLinkSensorComponent";
+					};
+				};
+			};
+		};
+		cost=500;
+		aiAmmoUsageFlags=256;
+		effectsFire="CannonFire";
+		missileFireAnim="rocket_fire_hide";
+		CraterEffects="AAMissileCrater";
+		explosionEffects="AAMissileExplosion";
+		effectsMissile="FX_Missile_SAM_LongRange";
+		muzzleEffect="";
+		lockedTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locked_Titan",
+			0.56234097,
+			2.5
+		};
+		lockingTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locking_Titan",
+			0.56234097,
+			1
+		};
+		reloadMagazineSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\reload_Missile_Launcher",
+			0.89125103,
+			1,
+			10
+		};
+		sounds[]=
+		{
+			"StandardSound"
+		};
+		soundFly[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\rocket_fly",
+			1,
+			1.1,
+			700
+		};
+		class StandardSound
+		{
+			begin1[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Titan",
+				1.41254,
+				1,
+				1100
+			};
+			soundBegin[]=
+			{
+				"begin1",
+				1
+			};
+			soundSetShot[]=
+			{
+				"Static_Launcher_Titan_ATAA_Shot_SoundSet",
+				"Static_Launcher_Titan_ATAA_Tail_SoundSet"
+			};
+		};
+		soundHit1[]=
+		{
+			"A3\Sounds_F\arsenal\weapons\Launchers\Titan\Explosion_titan_missile_01",
+			2.5118899,
+			1,
+			1900
+		};
+		soundHit2[]=
+		{
+			"A3\Sounds_F\arsenal\weapons\Launchers\Titan\Explosion_titan_missile_02",
+			2.5118899,
+			1,
+			1900
+		};
+		soundHit3[]=
+		{
+			"A3\Sounds_F\arsenal\weapons\Launchers\Titan\Explosion_titan_missile_03",
+			2.5118899,
+			1,
+			1900
+		};
+		SoundSetExplosion[]=
+		{
+			"RocketsHeavy_Exp_SoundSet",
+			"RocketsHeavy_Tail_SoundSet",
+			"Explosion_Debris_SoundSet"
+		};
+		multiSoundHit[]=
+		{
+			"soundHit1",
+			0.34,
+			"soundHit2",
+			0.33000001,
+			"soundHit3",
+			0.33000001
+		};
+		supersonicCrackFar[]=
+		{
+			"A3\Sounds_F\weapons\Explosion\supersonic_crack_50meters",
+			0.316228,
+			1,
+			50
+		};
+		supersonicCrackNear[]=
+		{
+			"A3\Sounds_F\weapons\Explosion\supersonic_crack_close",
+			0.39810699,
+			1,
+			20
+		};
+	};
+	class gbs_ammo_Missile_mim145: gbs_ammo_Missile_LongRangeAABase
+	{
+		model="brahmos_texturized_x10.p3d";
+		proxyShape="\A3\Weapons_F_Sams\Ammo\Missile_SAM_03_fly_F.p3d";
+		missileLockCone=120;
+		missileKeepLockedCone=120;
+		class Components: Components
+		{
+			class SensorsManagerComponent: SensorsManagerComponent
+			{
+				class Components: Components
+				{
+					class ActiveRadarSensorComponent: ActiveRadarSensorComponent
+					{
+						angleRangeHorizontal=120;
+						angleRangeVertical=120;
+					};
+				};
+			};
+		};
+	};
+	class gbs_ammo_Missile_s750: gbs_ammo_Missile_mim145
+	{
+		model="brahmos_texturized_x10.p3d";
+		proxyShape="\A3\Weapons_F_Sams\Ammo\Missile_SAM_04_fly_F.p3d";
+	};
+};
+class CfgMagazines
+{
+	magazines[] = {};
+	class VehicleMagazine;
+	class gbs_magazine_Missile_mim145_x4: VehicleMagazine
+	{
+		scope=2;
+		displayName="MIM-145 x4 (GBS)";
+		displayNameShort="MIM-145 x4 (GBS)";
+		descriptionShort="MIM-145 x4 (GBS) by Grom";
+		ammo="gbs_ammo_Missile_mim145";
+		count=4;
+		initSpeed=45;
+		maxLeadSpeed=1800;
+		sound[]=
+		{
+			"A3\Sounds_F\weapons\Rockets\titan_2",
+			1.25893,
+			1,
+			1000
+		};
+		soundFly[]=
+		{
+			"A3\Sounds_F\weapons\Rockets\rocket_fly_2",
+			0.50118703,
+			1.3,
+			400
+		};
+		reloadSound[]=
+		{
+			"",
+			0.00031622799,
+			1,
+			20
+		};
+		soundHit[]=
+		{
+			"",
+			1.25893,
+			1,
+			1
+		};
+		nameSound="missiles";
+	};
+	class gbs_magazine_Missile_s750_x4: gbs_magazine_Missile_mim145_x4
+	{
+		displayName="PJ-10 (x4)";
+		displayNameShort="PJ-10 BrahMos Cruise Missile (x4)";
+		descriptionShort="PJ-10 BrahMos Cruise Missile (x4) by Grom";
+		ammo="gbs_ammo_Missile_s750";
+	};
+};
+class CfgWeapons
+{
+	weapons[]=
+	{
+		"gbs_weapon_mim145Launcher",
+		"gbs_weapon_s750Launcher"
+	};
+	class MissileLauncher;
+	class gbs_weapon_mim145Launcher: MissileLauncher
+	{
+		displayName="GBS MIM-145 Test Launcher";
+		weaponLockDelay=1.5;
+		cmImmunity=0.69999999;
+		weaponLockSystem=8;
+		reloadTime=4;
+		magazineReloadTime=10;
+		magazines[]=
+		{
+			"gbs_magazine_Missile_mim145_x4"
+		};
+		aiRateOfFire=15;
+		aiRateOfFireDispersion=-10;
+		aiRateOfFireDistance=10000;
+		minRange=1000;
+		minRangeProbab=0.89999998;
+		midRange=3000;
+		midRangeProbab=1;
+		maxRange=16000;
+		maxRangeProbab=1;
+		modes[]=
+		{
+			"LoalDistance"
+		};
+		class LoalDistance: MissileLauncher
+		{
+			displayName="GBS MIM-145 Test Launcher [LOAL]";
+			textureType="semi";
+			reloadTime=4;
+			aiRateOfFire=15;
+			aiRateOfFireDispersion=-10;
+			aiRateOfFireDistance=10000;
+			minRange=1000;
+			minRangeProbab=0.89999998;
+			midRange=3000;
+			midRangeProbab=1;
+			maxRange=16000;
+			maxRangeProbab=1;
+			sounds[]=
+			{
+				"StandardSound"
+			};
+			class StandardSound
+			{
+				begin1[]=
+				{
+					"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Titan",
+					1.41254,
+					1,
+					1100
+				};
+				soundBegin[]=
+				{
+					"begin1",
+					1
+				};
+				soundSetShot[]=
+				{
+					"Static_Launcher_Titan_ATAA_Shot_SoundSet",
+					"Static_Launcher_Titan_ATAA_Tail_SoundSet"
+				};
+			};
+			lockedTargetSound[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locked_Titan",
+				0.56234133,
+				2.5
+			};
+			lockingTargetSound[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locking_Titan",
+				0.56234133,
+				1
+			};
+			soundFly[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\rocket_fly",
+				1,
+				1.1,
+				700
+			};
+		};
+		textureType="semi";
+		sounds[]=
+		{
+			"StandardSound"
+		};
+		class StandardSound
+		{
+			begin1[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Titan",
+				1.41254,
+				1,
+				1100
+			};
+			soundBegin[]=
+			{
+				"begin1",
+				1
+			};
+			soundSetShot[]=
+			{
+				"Static_Launcher_Titan_ATAA_Shot_SoundSet",
+				"Static_Launcher_Titan_ATAA_Tail_SoundSet"
+			};
+		};
+		lockedTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locked_Titan",
+			0.56234133,
+			2.5
+		};
+		lockingTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locking_Titan",
+			0.56234133,
+			1
+		};
+		soundFly[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\rocket_fly",
+			1,
+			1.1,
+			700
+		};
+		class GunParticles
+		{
+			class FirstEffect
+			{
+				effectName="MLRSFired";
+				positionName="pos_missile_backBlastFx_dir";
+				directionName="pos_missile_backBlastFx";
+			};
+		};
+	};
+	class gbs_weapon_s750Launcher: MissileLauncher
+	{
+		displayName="PJ-10 (Land System)";
+		weaponLockDelay=1.5;
+		cmImmunity=0.69999999;
+		weaponLockSystem=8;
+		reloadTime=4;
+		magazineReloadTime=10;
+		magazines[]=
+		{
+			"gbs_magazine_Missile_s750_x4"
+		};
+		aiRateOfFire=15;
+		aiRateOfFireDispersion=-10;
+		aiRateOfFireDistance=10000;
+		minRange=1000;
+		minRangeProbab=0.89999998;
+		midRange=3000;
+		midRangeProbab=1;
+		maxRange=16000;
+		maxRangeProbab=1;
+		modes[]=
+		{
+			"LoalDistance"
+		};
+		class LoalDistance: MissileLauncher
+		{
+			displayName="PJ-10 (Land System) [LOAL]";
+			textureType="semi";
+			reloadTime=4;
+			aiRateOfFire=15;
+			aiRateOfFireDispersion=-10;
+			aiRateOfFireDistance=10000;
+			minRange=1000;
+			minRangeProbab=0.89999998;
+			midRange=3000;
+			midRangeProbab=1;
+			maxRange=16000;
+			maxRangeProbab=1;
+			sounds[]=
+			{
+				"StandardSound"
+			};
+			class StandardSound
+			{
+				begin1[]=
+				{
+					"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Titan",
+					1.41254,
+					1,
+					1100
+				};
+				soundBegin[]=
+				{
+					"begin1",
+					1
+				};
+				soundSetShot[]=
+				{
+					"Static_Launcher_Titan_ATAA_Shot_SoundSet",
+					"Static_Launcher_Titan_ATAA_Tail_SoundSet"
+				};
+			};
+			lockedTargetSound[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locked_Titan",
+				0.56234133,
+				2.5
+			};
+			lockingTargetSound[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locking_Titan",
+				0.56234133,
+				1
+			};
+			soundFly[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\rocket_fly",
+				1,
+				1.1,
+				700
+			};
+		};
+		textureType="semi";
+		sounds[]=
+		{
+			"StandardSound"
+		};
+		class StandardSound
+		{
+			begin1[]=
+			{
+				"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Titan",
+				1.41254,
+				1,
+				1100
+			};
+			soundBegin[]=
+			{
+				"begin1",
+				1
+			};
+			soundSetShot[]=
+			{
+				"Static_Launcher_Titan_ATAA_Shot_SoundSet",
+				"Static_Launcher_Titan_ATAA_Tail_SoundSet"
+			};
+		};
+		lockedTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locked_Titan",
+			0.56234133,
+			2.5
+		};
+		lockingTargetSound[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\Locking_Titan",
+			0.56234133,
+			1
+		};
+		soundFly[]=
+		{
+			"A3\Sounds_F\arsenal\weapons_static\Missile_Launcher\rocket_fly",
+			1,
+			1.1,
+			700
+		};
+		class GunParticles
+		{
+			class FirstEffect
+			{
+				effectName="MLRSFired";
+				positionName="pos_missile_backBlastFx_dir";
+				directionName="pos_missile_backBlastFx";
+			};
+		};
+	};
+};
+class CfgNonAIVehicles
+{
+	class ProxyWeapon;
+	class ProxyMissile_SAM_03_fly_F: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_SAM_03_fly_F";
+		simulation="maverickweapon";
+	};
+	class ProxyMissile_SAM_04_fly_F: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_SAM_04_fly_F";
+		simulation="maverickweapon";
+	};
+	class ProxyMissile_AR_01_F: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_AR_01_F";
+		simulation="maverickweapon";
+	};
+	class ProxyMissile_AR_01_F_fly: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_AR_01_F_fly";
+		simulation="maverickweapon";
+	};
+	class ProxyMissile_AR_02_F: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_AR_02_F";
+		simulation="maverickweapon";
+	};
+	class ProxyMissile_AR_02_F_fly: ProxyWeapon
+	{
+		model="\A3\Weapons_F_Sams\Ammo\Missile_AR_02_F_fly";
+		simulation="maverickweapon";
+	};
+};
+
+author			= "Grom";
+onLoadName		= "ISRC Liberation";
+onLoadMission	= "Isrcartel.com/discord";
+onLoadIntro     = "Isrcartel.com/discord";
+loadScreen		= "isrc_texturepack\isrc_sun.paa";
+
+// CBA
+cba_settings_hasSettingsFile = 1;
+
+// Game Settings
+saving = 0;
+taskManagement_markers3D     = 1; 
+allowSubordinatesTakeWeapons = 1;
+respawn       		= 3;
+respawnButton 		= 1;
+respawnDelay        = 0;
+respawnVehicleDelay = 120;
+respawnDialog 		= 0;
+respawnOnStart      = 1;
+//reviveMode          = 2; //2 = controlled by player attributes
+//reviveUnconsciousStateMode = 2; //0 - basic mode // 1 - advanced mode // 2 - realistic
+
+// Brief/Debrief
+briefing 	= 0;
+debriefing  = 0;
+
+// AI Settings
+disabledAI = 1;
+
+// Debug Settings
+enableDebugConsole  = 1;  // Available in SP and for hosts / logged in admins
+//enableDebugConsole[] = {};
+
+// Player Settings
+enableTeamSwitch = 0;
+joinUnassigned   = 1;
+onCheat          = "hint str _this";
+
+// Flight Models
+//forceRotorLibSimulation = 1;
+
+// M A N A G E R S /////////////////////////////////////////////////////////////
+
+// corpseManager ////////////////////////////////////////////////////////////////////////////////////////////////
+corpseManagerMode = 1; 
+// activates @ 3rd corpse
+corpseLimit = 3;
+corpseRemovalMinTime = 45; 
+corpseRemovalMaxTime = 180;
+
+// WreckManager ////////////////////////////////////////////////////////////////////////////////////////////////
+wreckManagerMode = 1;
+wreckLimit = 2;
+wreckRemovalMinTime = 120;
+wreckRemovalMaxTime = 420;
+
+// corpse/wreck removal distance (script will not remove corpses further away than this) ////////////////////
+minPlayerDistance = 250;
+
+class Header
+{
+	gameType = CTI;	// Game type
+	minPlayers = 1;	// minimum number of players the mission supports
+	maxPlayers = 63;// maximum number of players the mission supports
+};
+
+class CfgDebriefing
+{  
+	class ZeusInvalidPerms
+	{
+		title = "Invalid Permission";
+		subtitle = "Invalid Permission";
+		description = "You do not have the required permission to use this slot.";
+		pictureBackground = "isrc_texturepack\isrc_flag.paa";
+		picture = "b_inf";
+		pictureColor[] = { 0.0, 0.3, 1.3, 1 };
+	};
+};
+
+class CfgNotifications
+{
+	class Intel
+	{
+		title = "Intel";		// Title displayed as text on black background. Filled by arguments.
+		iconPicture = "isrc_texturepack\icons\intel.paa";		// Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = "";			// Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = "%1";		// Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {1,1,1,1};	// Icon and text color
+		duration = 5;			// How many seconds will the notification be displayed
+		priority = 0;			// Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {};		// Required difficulty settings. All listed difficulties has to be enabled
+	};
+	class IntelRed
+	{
+		title = "Intel";		// Title displayed as text on black background. Filled by arguments.
+		iconPicture = "isrc_texturepack\icons\intel.paa";		// Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = "";			// Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = "%1";		// Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {1,0,0,1};	// Icon and text color
+		duration = 5;			// How many seconds will the notification be displayed
+		priority = 0;			// Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {};		// Required difficulty settings. All listed difficulties has to be enabled
+	};
+	class IntelGreen
+	{
+		title = "Intel";		// Title displayed as text on black background. Filled by arguments.
+		iconPicture = "isrc_texturepack\icons\intel.paa";		// Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = "";			// Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = "%1";		// Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {0,1,0,1};	// Icon and text color
+		duration = 5;			// How many seconds will the notification be displayed
+		priority = 0;			// Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {};		// Required difficulty settings. All listed difficulties has to be enabled
+	};	
+	class NewFunding
+	{
+		title = "New Funding";		// Title displayed as text on black background. Filled by arguments.
+		iconPicture = "isrc_texturepack\icons\intel.paa";		// Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = "";			// Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = "%1";		// Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {0,1,0,1};	// Icon and text color
+		duration = 5;			// How many seconds will the notification be displayed
+		priority = 0;			// Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {};		// Required difficulty settings. All listed difficulties has to be enabled
+	};		
+};
+
+class CfgIdentities
+{
+	
+    class ISRC_CIV_IDENTITY_FEMALE_0
+    {
+        face = "Default";
+        glasses = "None";
+        name = "Zuria Sarwar";
+        nameSound = "";
+        pitch = 1.3;
+        speaker = "";
+    };
+    
+    class ISRC_CIV_IDENTITY_FEMALE_1
+    {
+        face = "Default";
+        glasses = "None";
+        name = "Daana Faraz";
+        nameSound = "";
+        pitch = 1.3;
+        speaker = "";
+    };
+    
+    class ISRC_CIV_IDENTITY_FEMALE_2
+    {
+        face = "Default";
+        glasses = "None";
+        name = "Na'ilah Jawan";
+        nameSound = "";
+        pitch = 1.3;
+        speaker = "";
+    };	
+};
+
+class CfgCommands
+{
+	allowedHTMLLoadURIs[] = {
+		"*isrcartel.com*"
+	};
+};
+
+class CfgSounds
+{
+	sounds[] = {};
+	class incoming
+	{
+		// how the sound is referred to in the editor (e.g. trigger effects)
+		name = "incoming";
+
+		// filename, volume, pitch, distance (optional)
+		sound[] = { "temp\incoming.ogg", 1, 1, 1000 };
+
+		// subtitle delay in seconds, subtitle text
+		titles[] = {};
+	};
+};
+
+class ACE_Settings {
+    class ace_medical_medicSetting {value = 0; force = 1;};
+    class ace_medical_enableUnconsciousnessAI {value = 0; force = 1;};
+    class ace_medical_medicSetting_PAK {value = 0; force = 1;};
+    class ace_medical_medicSetting_SurgicalKit {value = 0; force = 1;};
+    class ace_medical_consumeItem_SurgicalKit {value = 0; force = 1;};
+    class ace_medical_useLocation_PAK {value = 0; force = 1;};
+    class ace_medical_useLocation_SurgicalKit {value = 0; force = 1;};
+    class ace_medical_useCondition_PAK {value = 0; force = 1;};
+    class ace_medical_useCondition_SurgicalKit {value = 0; force = 1;};
+};
