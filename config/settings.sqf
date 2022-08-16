@@ -24,12 +24,13 @@ missionNamespace setVariable ["ADMINS", [
 missionNamespace setVariable ['TIME_MULTIPLIER',   8];
 missionNamespace setVariable ['RESTART_INTERVAL_SECONDS',   18000, true];
 missionNamespace setVariable ['MAX_ACTIVE_SECTORS',     	2];
-missionNamespace setVariable ['SECTOR_CAPTURE_COEFFICIENT', 0.1]; // < 10% of the total enemy population is a CAPTURE
+missionNamespace setVariable ['ISRC_CAPTURING_ACCOUNTING_DELAY', 50]; // seconds in delay from spawn to monitoring current spawned units, enabling capture.
+missionNamespace setVariable ['SECTOR_CAPTURE_COEFFICIENT', 0.06]; // < 6% of the total enemy population is a CAPTURE
 missionNamespace setVariable ['RESPAWN_LOCATION',       	[-6580.57, 13945.2, 19], true];
 missionNamespace setVariable ['FOB_BRAVO_LOCATION',       	[1162.98,11088.3,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['FOB_CHARLIE_LOCATION',       [0,0,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['CLEANUP_INTERVAL',       	500]; //  Interval in seconds to run cleanup
-missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	7, true]; //  Max number of pedestrians that can be spawned in a sector
+missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	3, true]; //  Max number of pedestrians that can be spawned in a sector
 missionNamespace setVariable ['MAX_CIV_POP_TRAFFIC',    	3, true]; //  Max number of motorists that can be spawned in a sector
 missionNamespace setVariable ['BLUFOR_ACTIVATION_COUNT',    4]; // Number of Blufor players units needed in any sector to activate it
 // See functions/server/{fnc_spawner}!
@@ -37,10 +38,10 @@ missionNamespace setVariable ["LOCATION_TYPES", 			["NameLocal", "NameVillage", 
 missionNamespace setVariable ["DEBUG", 						false];
 missionNamespace setVariable ["SECTOR_RECAP_RANGE", 		100]; // Meters from the center of the sector for a BG to begin recapturing the point.
 missionNamespace setVariable ["SECTOR_RECAP_TIME", 			900]; // Time in seconds for a battlegroup to recapture a point.
-missionNamespace setVariable ["SECTOR_STRAGGLER_CUTOFF", 120]; // Per the first unit showing up at the sector, Time in seconds stragglers have to show up inside the sector's recap range before being deleted.
-missionNamespace setVariable ["SECTOR_RECAP_SIZE", 500]; // Area of inclusivity in regards to recapturing a sector.
+missionNamespace setVariable ["SECTOR_STRAGGLER_CUTOFF",    120]; // Per the first unit showing up at the sector, Time in seconds stragglers have to show up inside the sector's recap range before being deleted.
+missionNamespace setVariable ["SECTOR_RECAP_SIZE",          500]; // Area of inclusivity in regards to recapturing a sector.
 
-missionNamespace setVariable ["LOGI_POINT_CLASSNAME", "USMC_WarfareBVehicleServicePoint", true]; // className for our logi point
+missionNamespace setVariable ["LOGI_POINT_CLASSNAME",       "USMC_WarfareBVehicleServicePoint", true]; // className for our logi point
 
 missionNamespace setVariable ["STARTING_CIV_REP", 100]; // Starting civ rep
 missionNamespace setVariable ["STARTING_FUNDING", 10000000]; // Starting funding

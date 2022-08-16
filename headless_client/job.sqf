@@ -38,7 +38,7 @@ fnc_processAIGroup = {
 				_unit setPos ((getPosATL _unit) vectorAdd [0, 0, 0.07]);
 			};		
 		} forEach units _group;	
-		//[_group, 30] call fnc_delete_lazy_dudes; // delete lazy dudes - 30 seconds???
+		[_group, 25] call fnc_delete_lazy_dudes; // delete lazy dudes - 30 seconds???
 	};
 };
 

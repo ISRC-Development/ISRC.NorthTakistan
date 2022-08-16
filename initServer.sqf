@@ -899,7 +899,7 @@ fnc_establishSector = {
     switch (_type) do {
         case "NameMarine": {
             _radiusInfantry      = 250;
-            _radiusVehicles      = 400;
+            _radiusVehicles      = 1200; // extra large radius for marine vehicles
             _radiusAir           = 600;
             _radiusArmor         = 500;
 
@@ -968,13 +968,13 @@ fnc_establishSector = {
             _markerType          = "o_unknown";
         };
         case "NameCityCapital": {
-            _radiusInfantry      = 800;
-            _radiusVehicles      = 1000;
-            _radiusAir           = 2000;
-            _radiusArmor         = 1200;
+            _radiusInfantry      = 650;
+            _radiusVehicles      = 800;
+            _radiusAir           = 1000;
+            _radiusArmor         = 850;
 
             _infantryCountRange  = [16, 20];
-            _vehiclesCountRange  = [10, 15];
+            _vehiclesCountRange  = [8, 12];
             _airCountRange       = [3, 6];
             _armorCountRange     = [6, 8];
 
