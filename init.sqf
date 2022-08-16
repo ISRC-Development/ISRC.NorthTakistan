@@ -92,6 +92,3 @@ fnc_civilianAccountablity = {
 if (isServer) then {
     HCL_ENABLED = false;
 };
-
-
-//ITC_LAND_CIWS_INTERCEPTABLE pushBack "rhs_mag_m21of_1";
