@@ -25,8 +25,8 @@ missionNamespace setVariable ['TIME_MULTIPLIER',   8];
 missionNamespace setVariable ['RESTART_INTERVAL_SECONDS',   18000, true];
 missionNamespace setVariable ['MAX_ACTIVE_SECTORS',     	2];
 missionNamespace setVariable ['SECTOR_CAPTURE_COEFFICIENT', 0.1]; // < 10% of the total enemy population is a CAPTURE
-missionNamespace setVariable ['RESPAWN_LOCATION',       	[-2545.1,13415.1,16.8], true];
-missionNamespace setVariable ['FOB_BRAVO_LOCATION',       	[0,0,0], true]; // [0, 0, 0] for none
+missionNamespace setVariable ['RESPAWN_LOCATION',       	[-6580.57, 13945.2, 19], true];
+missionNamespace setVariable ['FOB_BRAVO_LOCATION',       	[1162.98,11088.3,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['FOB_CHARLIE_LOCATION',       [0,0,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['CLEANUP_INTERVAL',       	500]; //  Interval in seconds to run cleanup
 missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	7, true]; //  Max number of pedestrians that can be spawned in a sector
@@ -247,8 +247,6 @@ missionNamespace setVariable ["ISRC_ENEMY_MARINE", [
     "UK3CB_CHD_W_O_Fishing_Boat_SPG9"
 ]];
 
-
-
 missionNamespace setVariable ["ISRC_civilians", [
 	"ZEPHIK_Female_Civ_15",
 	"ZEPHIK_Female_Civ_14", 
@@ -312,7 +310,7 @@ missionNamespace setVariable ["ISRC_transport_troops", [
 
 missionNamespace setVariable ["CURRENCY_SYMBOL", "$", true];
 
-missionNamespace setVariable ["STARTING_COP_LOCATION", [1480.73,11328.3,0], true]; // set to false for none, players will then have to purchase the initial FLP
+missionNamespace setVariable ["STARTING_COP_LOCATION", [-10718.1,18496,0], true]; // set to false for none, players will then have to purchase the initial FLP
 missionNamespace setVariable ["COP_DEPLOY_MOVE_PRICE", 100000, true];
 
 missionNamespace setVariable ["SIDE_OP_HUMANITARIAN_ELAPSED_TIME", 1800, true];

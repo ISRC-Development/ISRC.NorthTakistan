@@ -111,5 +111,13 @@ North Takistan and on:
 
 remove radio from super tucano
 
-blacklist cleanup script for a given area, add to config
+
+__DS Test 1__
+> Capital spawns are huuuggee.
+
+> bring back the lazy dude cleanup
+
+> make nameMarine proc range larger!
+
+> make spawner synchronous ie: remove the `spawn {}` code that runs in unscheduled env.
 

@@ -6,10 +6,6 @@ class EditorData
 	scaleGridStep=1;
 	autoGroupingDist=10;
 	toggles=513;
-	mods[]=
-	{
-		"3denEnhanced"
-	};
 	class ItemIDProvider
 	{
 		nextID=3198;
@@ -20,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=106;
+		nextID=108;
 	};
 	class Camera
 	{
-		pos[]={-2326.4248,327.32779,13249.13};
-		dir[]={0.81066084,-0.37478572,-0.45008251};
-		up[]={0.32770491,0.92709076,-0.18194306};
-		aside[]={-0.4854548,-1.3885438e-007,-0.87438059};
+		pos[]={-6579.7788,21.53097,13945.666};
+		dir[]={0.83445728,0.07807339,0.54551423};
+		up[]={-0.065348379,0.99694765,-0.042720545};
+		aside[]={0.54718447,0,-0.83701217};
 	};
 };
 binarizationWanted=0;
@@ -81,14 +77,13 @@ addons[]=
 	"CUP_Misc_e_Config",
 	"A3_Structures_F_Mil_Fortification",
 	"A3_Structures_F_Items_Vessels",
-	"cba_xeh",
-	"A3_Boat_F_Gamma_Boat_Transport_01"
+	"cba_xeh"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=42;
+		items=41;
 		class Item0
 		{
 			className="CUP_WarfareBuildings";
@@ -362,13 +357,6 @@ class AddonsMetaData
 		{
 			className="CUP_Misc_e_Config";
 			name="CUP_Misc_e_Config";
-		};
-		class Item41
-		{
-			className="A3_Boat_F_Gamma";
-			name="Arma 3 - Boats and Submersibles";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
 		};
 	};
 };
@@ -678,7 +666,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=87;
+		items=86;
 		class Item0
 		{
 			dataType="Object";
@@ -1059,8 +1047,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2475.1982,3.6475532,13475.356};
-				angles[]={0,1.1710541,0};
+				position[]={-6489.8652,4.0051298,14026.509};
+				angles[]={0,1.0635087,0};
 			};
 			side="Empty";
 			class Attributes
@@ -1069,18 +1057,17 @@ class Mission
 			};
 			id=1969;
 			type="rhsusf_mkvsoc";
-			atlOffset=49.140736;
+			atlOffset=23.367208;
 		};
 		class Item8
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2569.2842,19.402119,13409.895};
-				angles[]={0,1.0637592,0};
+				position[]={-6606.4922,19.636812,13949.838};
+				angles[]={0,1.0025295,0};
 			};
 			side="Empty";
-			flags=4;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -1090,7 +1077,7 @@ class Mission
 			};
 			id=1974;
 			type="RHS_MELB_MH6M";
-			atlOffset=0.04574585;
+			atlOffset=0.29999161;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -2149,11 +2136,10 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2589.064,19.369537,13396.599};
+				position[]={-6586.4355,19.312519,13961.65};
 				angles[]={0,1.6981306,0};
 			};
 			side="Empty";
-			flags=4;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -2165,7 +2151,7 @@ class Mission
 			};
 			id=1474;
 			type="RHSGREF_A29B_HIDF";
-			atlOffset=0.076213837;
+			atlOffset=45.568359;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -2546,7 +2532,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={889.92303,15.043975,1326.3224};
-						angles[]={6.2821555,1.5942885,6.2828364};
+						angles[]={0,1.5942885,0};
 					};
 					side="West";
 					flags=6;
@@ -2555,7 +2541,7 @@ class Mission
 					};
 					id=2798;
 					type="B_UAV_AI";
-					atlOffset=0.086269379;
+					atlOffset=-240.04372;
 				};
 				class Item1
 				{
@@ -2563,7 +2549,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={889.92328,16.829372,1325.707};
-						angles[]={6.2821555,1.5942885,6.2828364};
+						angles[]={0,1.5942885,0};
 					};
 					side="West";
 					flags=4;
@@ -2572,7 +2558,7 @@ class Mission
 					};
 					id=2799;
 					type="B_UAV_AI";
-					atlOffset=0.086269379;
+					atlOffset=-238.39142;
 				};
 			};
 			class Attributes
@@ -2611,15 +2597,15 @@ class Mission
 				};
 			};
 			id=2796;
-			atlOffset=0.086269379;
+			atlOffset=0.011140823;
 		};
 		class Item42
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2504.1167,19.317177,13450.448};
-				angles[]={6.2821555,1.5942885,6.2828364};
+				position[]={-6521.374,19.21941,14003.005};
+				angles[]={0,1.5942885,0};
 			};
 			side="West";
 			flags=6;
@@ -2630,7 +2616,7 @@ class Mission
 			};
 			id=2797;
 			type="USAF_MQ9";
-			atlOffset=0.086269379;
+			atlOffset=0.011140823;
 		};
 		class Item43
 		{
@@ -11216,11 +11202,10 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2608.4758,20.691021,13383.944};
+				position[]={-6625.2715,20.773884,13937.787};
 				angles[]={0,1.7239472,0};
 			};
 			side="Empty";
-			flags=4;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -11230,7 +11215,7 @@ class Mission
 			};
 			id=3153;
 			type="sab_c2a_1_1";
-			atlOffset=0.20029068;
+			atlOffset=0.26490593;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -11581,14 +11566,14 @@ class Mission
 				};
 			};
 			id=3166;
-			atlOffset=39.892414;
+			atlOffset=27.50156;
 		};
 		class Item70
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-2571.7534,1,13374.116};
+				position[]={-6589.8218,1,13926.322};
 				angles[]={0,4.1447744,0};
 			};
 			side="West";
@@ -11598,7 +11583,7 @@ class Mission
 			};
 			id=3167;
 			type="JDG_carrier_Spawner";
-			atlOffset=39.892414;
+			atlOffset=27.50156;
 		};
 		class Item71
 		{
@@ -11864,46 +11849,6 @@ class Mission
 			atlOffset=-0.0003490448;
 		};
 		class Item85
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={-2535.0471,8.8438854,13433.06};
-				angles[]={0,2.5991442,0};
-			};
-			side="Empty";
-			class Attributes
-			{
-				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
-			};
-			id=3194;
-			type="B_G_Boat_Transport_01_F";
-			atlOffset=50.037994;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""FirstAidKit""],[2]],[[],[]],[[],[]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item86
 		{
 			dataType="Marker";
 			position[]={1193.1932,23.307655,11135.284};
