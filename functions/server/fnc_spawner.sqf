@@ -52,75 +52,90 @@ _indicator setMarkerColor "ColorRed";
 } forEach allUnits;
 */
 
-[_triggerpos, _infantryRadius] spawn {
-	for "_i" from 0 to MAX_CIV_POP_PEDS do {
-		private _unitClass = selectRandom ISRC_civilians;
-		private _action    = "spawn_civilian_ped";
-		if (selectRandom[false, false, false, false, false, true]) then {
-			_action = "spawn_ssb_ped";
+if (_locationType != "NameMarine") then {
+
+	[_triggerpos, _infantryRadius] spawn {
+		for "_i" from 0 to MAX_CIV_POP_PEDS do {
+			private _unitClass = selectRandom ISRC_civilians;
+			private _action    = "spawn_civilian_ped";
+			if (selectRandom[false, false, false, false, false, true]) then {
+				_action = "spawn_ssb_ped";
+			};
+			[_action, [
+				_unitClass,
+				[[_this], []] call BIS_fnc_randomPos
+			]] call fnc_new_HC_job;	
+		};	
+	};
+
+	[_triggerpos, _infantryRadius] spawn {
+		for "_i" from 0 to MAX_CIV_POP_TRAFFIC do {
+			private _unitClass = selectRandom ISRC_civilians;
+			private _vehClass  = selectRandom ISRC_civilian_vehicles;
+			private _action    = "spawn_civilian_motorist";
+			if (selectRandom[false, false, false, false, false, true]) then {
+				_action = "spawn_ssb_motorist";	
+			};
+			[_action, [
+				_unitClass,
+				_vehClass,
+				[[_this], []] call BIS_fnc_randomPos
+			]] call fnc_new_HC_job;	
 		};
-		[_action, [
-			_unitClass,
-			[[_this], []] call BIS_fnc_randomPos
-		]] call fnc_new_HC_job;	
-	};	
-};
+	};
 
-[_triggerpos, _infantryRadius] spawn {
-	for "_i" from 0 to MAX_CIV_POP_TRAFFIC do {
-		private _unitClass = selectRandom ISRC_civilians;
-		private _vehClass  = selectRandom ISRC_civilian_vehicles;
-		private _action    = "spawn_civilian_motorist";
-		if (selectRandom[false, false, false, false, false, true]) then {
-			_action = "spawn_ssb_motorist";	
+	[_triggerpos, _infantryAmount, _infantryRadius] spawn {
+		params["_triggerpos", "_infantryAmount", "_infantryRadius"];
+		for "_i" from 0 to _infantryAmount do {
+			private _group        = createGroup ENEMY_SIDE;
+			private _generalpos   = [[[_triggerpos, _infantryRadius]], []] call BIS_fnc_randomPos;
+			private _randomGroup  = selectRandom ISRC_ENEMY_INFANTRY;
+			private _FD_group_name  = _randomGroup select 0;
+			private _FD_group_units = _randomGroup select 1;
+			["spawn_group", [
+				side _group,
+				_FD_group_units,
+				_generalpos,
+				true,
+				[_generalpos, _infantryRadius]
+			]] call fnc_new_HC_job;
 		};
-		[_action, [
-			_unitClass,
-			_vehClass,
-			[[_this], []] call BIS_fnc_randomPos
-		]] call fnc_new_HC_job;	
 	};
-};
 
-[_triggerpos, _infantryAmount, _infantryRadius] spawn {
-	params["_triggerpos", "_infantryAmount", "_infantryRadius"];
-	for "_i" from 0 to _infantryAmount do {
-		private _group        = createGroup ENEMY_SIDE;
-		private _generalpos   = [[[_triggerpos, _infantryRadius]], []] call BIS_fnc_randomPos;
-		private _randomGroup  = selectRandom ISRC_ENEMY_INFANTRY;
-		private _FD_group_name  = _randomGroup select 0;
-		private _FD_group_units = _randomGroup select 1;
-		["spawn_group", [
-			side _group,
-			_FD_group_units,
-			_generalpos,
-			true,
-			[_generalpos, _infantryRadius]
-		]] call fnc_new_HC_job;
+	[_triggerpos, _vehicleAmount, _vehicleRadius] spawn {
+		params["_triggerpos", "_vehicleAmount", "_vehicleRadius"];
+		for "_i" from 0 to _vehicleAmount do {
+			["spawn_crewed_vehicle", [
+				selectRandom ISRC_ENEMY_CAR,
+				[_triggerpos, 1, _vehicleRadius, 5, 0, 15, 0, [], []] call BIS_fnc_findSafePos,
+				true,
+				[]
+			]] call fnc_new_HC_job;
+		};
 	};
-};
 
-[_triggerpos, _vehicleAmount, _vehicleRadius] spawn {
-	params["_triggerpos", "_vehicleAmount", "_vehicleRadius"];
-	for "_i" from 0 to _vehicleAmount do {
-		["spawn_crewed_vehicle", [
-			selectRandom ISRC_ENEMY_CAR,
-			[_triggerpos, 1, _vehicleRadius, 5, 0, 15, 0, [], []] call BIS_fnc_findSafePos,
-			true,
-			[]
-		]] call fnc_new_HC_job;
+	[_triggerpos, _armorAmount, _armorRadius] spawn {
+		params["_triggerpos", "_armorAmount", "_armorRadius"];
+		for "_i" from 0 to _armorAmount do {
+			["spawn_crewed_vehicle", [
+				selectRandom ISRC_ENEMY_ARMOR,
+				[_triggerpos, 1, _armorRadius, 5, 0, 15, 0, [], []] call BIS_fnc_findSafePos,
+				true,
+				[]
+			]] call fnc_new_HC_job;	
+		};
 	};
-};
-
-[_triggerpos, _armorAmount, _armorRadius] spawn {
-	params["_triggerpos", "_armorAmount", "_armorRadius"];
-	for "_i" from 0 to _armorAmount do {
-		["spawn_crewed_vehicle", [
-			selectRandom ISRC_ENEMY_ARMOR,
-			[_triggerpos, 1, _armorRadius, 5, 0, 15, 0, [], []] call BIS_fnc_findSafePos,
-			true,
-			[]
-		]] call fnc_new_HC_job;	
+} else {
+	[_triggerpos, _vehicleAmount, _vehicleRadius] spawn {
+		params["_triggerpos", "_vehicleAmount", "_vehicleRadius"];
+		for "_i" from 0 to _vehicleAmount do {
+			["spawn_crewed_vehicle", [
+				selectRandom ISRC_ENEMY_MARINE,
+				[_triggerpos, 1, _vehicleRadius, 5, 2, 15] call BIS_fnc_findSafePos,
+				true,
+				[_triggerpos, _vehicleRadius]
+			]] call fnc_new_HC_job;	
+		};
 	};
 };
 
@@ -151,11 +166,11 @@ private _air_deployment_type   = _air_deployment select 2;
 };
 
 sleep 45;
-private _units = (_triggerpos nearEntities [["Man", "Car", "Air", "Motorcycle", "Tank", "Turret", "Truck"], _airRadius * 1.5]) select { side _x == ENEMY_SIDE || (RESISTANCE_IS_FRIENDLY == false && side _x == resistance)};
+private _units = (_triggerpos nearEntities [["Man", "Car", "Air", "Motorcycle", "Tank", "Turret", "Truck", "Ship", "Boat"], _airRadius * 1.5]) select { side _x == ENEMY_SIDE || (RESISTANCE_IS_FRIENDLY == false && side _x == resistance)};
 // looks for men that are enemy and within 1.5x the airradius and are not in a vehicle and are in a group with unit count > 1
 /////////////////// Sector Loop -> ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-private _capCoefficient = round((count _units) * 0.05); //< 5% of the total population is a CAPTURE
+private _capCoefficient = round((count _units) * SECTOR_CAPTURE_COEFFICIENT);
 while { ({ alive _x } count _units > _capCoefficient) } do {
 	/*
 		{
@@ -176,7 +191,7 @@ while { ({ alive _x } count _units > _capCoefficient) } do {
 			};		
 		} forEach allGroups;
 	*/
-	_units = (_triggerpos nearEntities [["Man", "Car", "Air", "Motorcycle", "Tank", "Turret", "Truck"], _airRadius * 1.5]) select { side _x == ENEMY_SIDE || (RESISTANCE_IS_FRIENDLY == false && side _x == resistance)}; // && isNull objectParent _x && count units group _x > 1
+	_units = (_triggerpos nearEntities [["Man", "Car", "Air", "Motorcycle", "Tank", "Turret", "Truck", "Ship", "Boat"], _airRadius * 1.5]) select { side _x == ENEMY_SIDE || (RESISTANCE_IS_FRIENDLY == false && side _x == resistance)}; // && isNull objectParent _x && count units group _x > 1
 	sleep 15;
 };
 

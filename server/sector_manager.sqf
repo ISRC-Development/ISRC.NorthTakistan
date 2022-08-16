@@ -37,7 +37,7 @@ fnc_deactivate_sector = {
 	// Saves our new funding.
 	private _currentFunding = call fnc_getCurrentFundingBalance;
 
-	private _newFunding = 50000;
+	private _newFunding = 500000;
 	private _supplyAmount = 0;
 	private _supplyRange  = 70;
 	switch (_locationType) do {
@@ -46,17 +46,17 @@ fnc_deactivate_sector = {
 		};
 		case "NameLocal": {
 			_newFunding = 2000000;
-			_supplyAmount = 2;
+			_supplyAmount = 0;
 			_supplyRange = 80;
 		};
 		case "NameCity": {
 			_newFunding = 5000000;
-			_supplyAmount = 4;
+			_supplyAmount = 0;
 			_supplyRange = 125;
 		};
 		case "NameCityCapital": {
 			_newFunding = 10000000;
-			_supplyAmount = 8;
+			_supplyAmount = 0;
 			_supplyRange = 175;
 		};
 		default {};

@@ -401,6 +401,18 @@ fnc_randPos = {
     _sp
 };
 
+fnc_inCleanupWhitelistArea = {
+    // https://community.bistudio.com/wiki/inArea#:~:text=position%20inArea%20%5Bcenter%2C%20a%2C%20b%2C%20angle%2C%20isRectangle%2C%20c%5D
+    params ["_pos"];
+    private _in = false;
+    {
+        if (_pos inArea _x) then {
+            _in = true;
+        };
+    } forEach CLEANUP_WHITELIST_AREAS;
+    _in
+};
+
 fnc_postProcessVehicle = {
     params ["_vehicle"];
     switch (typeOf _vehicle) do {
@@ -523,6 +535,8 @@ fnc_getAllWhitelist = {
                 && !("ace_refuel" in typeOf _x)
                 && !("Rope" in typeOf _x)
                 && !("WeaponHolderSimulated" in typeOf _x)
+                && !("LaserTargetW" in typeOf _x)
+                && !([getPos _x] call fnc_inCleanupWhitelistArea)
                 ) then {
                     //systemChat format ["[DEBUG] Cleaning up %1", typeOf _x];
                     deleteVehicle _x;
@@ -534,6 +548,13 @@ fnc_getAllWhitelist = {
 
         //systemChat format["[DEBUG] %1 vehicles [AFTER]",  count vehicles];
         sleep (CLEANUP_INTERVAL - 60);
+        {
+            // Fuel-up all non-blufor motorists
+            if ((side _x != WEST) && !(isNull objectParent _x)) then {
+                (vehicle _x) setFuel 1;
+                //(vehicle _x) setDamage 0;
+            };         
+        } forEach allUnits;
     };
 };
 
@@ -553,13 +574,8 @@ _server_units_marker setMarkerType "loc_download";
 [_server_fps_marker, _server_units_marker] spawn {
     params["_server_units_marker", "_server_fps_marker"];
     while {true} do{
-        {
-            // All non-blufor motorists
-            if ((side _x != WEST) && !(isNull objectParent _x)) then {
-                (vehicle _x) setFuel 1;
-                //(vehicle _x) setDamage 0;
-            };         
-        } forEach allUnits;
+
+        // Asset Markers
         [] call fnc_updateVehicleMarkers;   
 
         // FPS Marker Update
@@ -887,13 +903,13 @@ fnc_establishSector = {
             _radiusAir           = 600;
             _radiusArmor         = 500;
 
-            _infantryCountRange  = [8, 10];
-            _vehiclesCountRange  = [3, 6];
-            _airCountRange       = [1, 2];
-            _armorCountRange     = [1, 3];
+            _infantryCountRange  = [0, 0];
+            _vehiclesCountRange  = [5, 8];
+            _airCountRange       = [0, 0];
+            _armorCountRange     = [0, 0];
 
             //_markerColor         = "ColorYellow";  
-            _markerType          = "o_support";          
+            _markerType          = "o_naval";          
         };  
         case "RadioTower": {
             _radiusInfantry      = 300;
@@ -907,7 +923,7 @@ fnc_establishSector = {
             _armorCountRange     = [1, 3];
 
             //_markerColor         = "ColorYellow";  
-            _markerType          = "o_support";          
+            _markerType          = "o_installation";          
         };                        
         case "NameLocal": {
             _radiusInfantry      = 300;
@@ -971,7 +987,7 @@ fnc_establishSector = {
     createMarker [_marker, _pos];
     _marker setMarkerType _markerType;
     _marker setMarkerText _name;
-    _marker setMarkerSize [1.2, 1.2];  
+    _marker setMarkerSize [0.6, 0.6];  
     _marker setMarkerColor "ColorBlue"; 
 
     // Get mean of radius'

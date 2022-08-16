@@ -99,9 +99,6 @@ gamemode where we're embedded cia that cant be discovered by civilians
 
 make ai that collects intel
 
-
-[object] call BIS_fnc_replaceWithSimpleObject;
-
 cap is wayy too easy, initial unit count gets diminished when snakes are deleted,
 
 suppress is supressing players too hard
@@ -110,4 +107,9 @@ suppress is supressing players too hard
 -------
 
 North Takistan and on: 
+
+
+remove radio from super tucano
+
+blacklist cleanup script for a given area, add to config
 

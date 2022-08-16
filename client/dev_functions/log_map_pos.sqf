@@ -9,6 +9,16 @@
 				copyToClipboard str _pos;
 				hint format ["Map position %1 copied to clipboard", _pos];
 				openMap false;
+				[_pos] spawn {
+					params ["_pos"];
+					private _marker = createMarker ["MapPos", _pos];
+					_marker setMarkerColor "ColorGreen";
+					_marker setMarkerType "mil_dot";
+					_marker setMarkerSize [1.5, 1.5];
+					_marker setMarkerText format ["%1: %2", name player, _pos];
+					sleep 500;
+					deleteMarker _marker;
+				};
 				true
 			};
 		},

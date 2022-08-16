@@ -38,7 +38,7 @@ fnc_processAIGroup = {
 				_unit setPos ((getPosATL _unit) vectorAdd [0, 0, 0.07]);
 			};		
 		} forEach units _group;	
-		[_group, 30] call fnc_delete_lazy_dudes; // delete lazy dudes - 30 seconds???
+		//[_group, 30] call fnc_delete_lazy_dudes; // delete lazy dudes - 30 seconds???
 	};
 };
 
@@ -65,24 +65,6 @@ fnc_new_HC_job = {
 	// TODO: HC Zombie manager
 	// Note: $_isenemy determines whether or not to apply fnc_aggressive_ai to the group.
 	switch (_job_name) do {
-
-		case "spawn_zombie":
-		{
-			private _classname = _args select 0;
-			private _pos       = _args select 1;
-			private _group     = createGroup ENEMY_SIDE;
-			private _unit      = _group createUnit [_classname, [_pos, 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos, [], 0, "NONE"];
-			[_group, false, [], false] call fnc_processAIGroup;
-			[_unit, 5] call WBK_LoadAIThroughEden;
-			_group addWaypoint [[_unit, 3] call fnc_inFrontOf, 0];
-			/*
-			1 - Crawler
-			2 - Walker
-			3 - Shambler
-			4 and 5 - Runner (Calm, Angry)
-			6 - Triggerman
-			*/
-		};
 
 		case "spawn_ssb_ped": {
 			private _classname = _args select 0;
@@ -167,7 +149,11 @@ fnc_new_HC_job = {
 			if (_classname in ISRC_ENEMY_AIR) then {
 				_vehicle       = createVehicle [_classname, _pos, [], 0, "FLY"];
 			} else {
-				_vehicle 	   = _classname createVehicle ([_pos, 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos);			
+				if (_classname in ISRC_ENEMY_MARINE) then {
+					_vehicle 	   = _classname createVehicle _pos;
+				} else {
+					_vehicle 	   = _classname createVehicle ([_pos, 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos);
+				};			
 			};
 			private _crew      = createVehicleCrew _vehicle;
 
