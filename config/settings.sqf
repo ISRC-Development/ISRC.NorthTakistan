@@ -44,7 +44,7 @@ missionNamespace setVariable ["SECTOR_RECAP_SIZE",          500]; // Area of inc
 missionNamespace setVariable ["LOGI_POINT_CLASSNAME",       "USMC_WarfareBVehicleServicePoint", true]; // className for our logi point
 
 missionNamespace setVariable ["STARTING_CIV_REP", 100]; // Starting civ rep
-missionNamespace setVariable ["STARTING_FUNDING", 10000000]; // Starting funding
+missionNamespace setVariable ["STARTING_FUNDING", 100000000]; // Starting funding: 100mil
 missionNamespace setVariable ["RESUPPLY_INTERVAL_SECONDS", 1600, true]; // Interval until any role leader can grab a new crate.
 missionNamespace setVariable ["ZEUS_LOGISTICS_SUPPLIES_CLASSES", [
     "CargoNet_01_box_F",

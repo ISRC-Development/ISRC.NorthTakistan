@@ -8,6 +8,7 @@ PURCHASE_MENU_ITEMS = [
 		[
 			["UK3CB_B_LAV25_HQ_HIDF", "LAV-25 (HQ)", 1200000, "", "", 0],
 			["UK3CB_B_LAV25_HIDF", "LAV-25 (IFV)", 2000000, "", "", 0],
+			["SuperAV_RSOP", "BAE ACV-RSOP", 25000000, "", "", 0],
 			["RHS_M2A3_BUSKIII_wd", "M2A3 Bradley (BUSK III)", 3200000, "The Bradley Fighting Vehicle (BFV) is a tracked<br> fighting vehicle platform of the United States<br> manufactured by BAE Systems Land<br> & Armaments, formerly United<br> Defense. It was named after U.S. General<br> Omar Bradley.", "", 0]
 		]
 	],
@@ -68,6 +69,8 @@ PURCHASE_MENU_ITEMS = [
 		[
 			["RHSGREF_A29B_HIDF", "A29 Super Tucano", 2500000, "", "", 0],
 			["USAF_A10", "A-10C Thunderbolt II", 8000000, "", "", 0],
+			["JS_JC_FA18E", "F/A-18E", 15000000, "", "", 0],
+			["JS_JC_FA18F", "F/A-18F", 20000000, "", "", 0],
 			["USAF_F35A", "F-35A Lightning (Stealth)", 30000000, "", "", 0],
 			["USAF_C130J", "C-130J (Transport)", 50000000, "", "", 0]
 		]

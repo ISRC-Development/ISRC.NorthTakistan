@@ -8,7 +8,7 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=3198;
+		nextID=3202;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=110;
+		nextID=111;
 	};
 	class Camera
 	{
-		pos[]={-6593.4214,31.892172,13935.455};
-		dir[]={0.86588591,-0.090805687,0.49193791};
-		up[]={0.078953028,0.99586862,0.044855755};
-		aside[]={0.49397859,1.4086254e-008,-0.86947799};
+		pos[]={1181.4576,39.191269,11083.878};
+		dir[]={-0.78209996,-0.36556762,-0.50469118};
+		up[]={-0.3071686,0.9307816,-0.19821718};
+		aside[]={-0.54222089,4.2789907e-007,0.84025854};
 	};
 };
 binarizationWanted=0;
@@ -77,13 +77,15 @@ addons[]=
 	"CUP_Misc_e_Config",
 	"A3_Structures_F_Mil_Fortification",
 	"A3_Structures_F_Items_Vessels",
-	"cba_xeh"
+	"cba_xeh",
+	"JS_JC_FA18",
+	"USAF_F35A_C"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=41;
+		items=43;
 		class Item0
 		{
 			className="CUP_WarfareBuildings";
@@ -357,6 +359,19 @@ class AddonsMetaData
 		{
 			className="CUP_Misc_e_Config";
 			name="CUP_Misc_e_Config";
+		};
+		class Item41
+		{
+			className="JS_JC_FA18";
+			name="JS_JC_FA18";
+			author="F/A-18E/F Super Hornet Team";
+		};
+		class Item42
+		{
+			className="USAF_F35A_C";
+			name="USAF_F35A_C";
+			author="USAF Mod Team";
+			url="https://gitlab.com/usaf-a3/usaf-mod";
 		};
 	};
 };
@@ -666,7 +681,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=86;
+		items=89;
 		class Item0
 		{
 			dataType="Object";
@@ -1064,7 +1079,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-6606.4922,19.636812,13949.838};
+				position[]={-6523.3384,9.1912403,13965.596};
 				angles[]={0,1.0025295,0};
 			};
 			side="Empty";
@@ -1077,7 +1092,7 @@ class Mission
 			};
 			id=1974;
 			type="RHS_MELB_MH6M";
-			atlOffset=0.29999161;
+			atlOffset=0.25280571;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1662,7 +1677,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={6851.1001,57.615601,436.63422};
-						angles[]={0.049120303,1.4975414,6.2315812};
+						angles[]={0.020097131,1.4975414,0.0025837421};
 					};
 					side="West";
 					flags=6;
@@ -1679,7 +1694,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={6851.1001,57.766068,436.63464};
-						angles[]={0.049120303,1.4975414,6.2315812};
+						angles[]={0.020097131,1.4975414,0.0025837421};
 					};
 					side="West";
 					flags=4;
@@ -1727,18 +1742,18 @@ class Mission
 				};
 			};
 			id=196;
-			atlOffset=0.74568939;
+			atlOffset=-0.00029563904;
 		};
 		class Item15
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={1168.2722,23.747421,11064.309};
-				angles[]={0.049120303,1.4975414,6.2315812};
+				position[]={1155.6449,22.648146,11079.592};
+				angles[]={0.020097131,1.4975414,0.0025837421};
 			};
 			side="West";
-			flags=2;
+			flags=6;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -1747,7 +1762,7 @@ class Mission
 			};
 			id=197;
 			type="ITC_Land_B_UAV_AR2i";
-			atlOffset=0.74568939;
+			atlOffset=-0.00029563904;
 		};
 		class Item16
 		{
@@ -2136,10 +2151,11 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-6586.4355,19.312519,13961.65};
-				angles[]={0,1.6981306,0};
+				position[]={-6556.75,8.9000931,13944.62};
+				angles[]={0,1.0132843,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -2151,7 +2167,7 @@ class Mission
 			};
 			id=1474;
 			type="RHSGREF_A29B_HIDF";
-			atlOffset=45.568359;
+			atlOffset=0.0046195984;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -2532,7 +2548,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={889.92303,15.043975,1326.3224};
-						angles[]={0,1.5942885,0};
+						angles[]={0,1.7605208,0};
 					};
 					side="West";
 					flags=6;
@@ -2549,7 +2565,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={889.92328,16.829372,1325.707};
-						angles[]={0,1.5942885,0};
+						angles[]={0,1.7605208,0};
 					};
 					side="West";
 					flags=4;
@@ -2597,15 +2613,15 @@ class Mission
 				};
 			};
 			id=2796;
-			atlOffset=0.011140823;
+			atlOffset=0.0059986115;
 		};
 		class Item42
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-6521.374,19.21941,14003.005};
-				angles[]={0,1.5942885,0};
+				position[]={-6534.7534,19.19705,13986.596};
+				angles[]={0,1.7605208,0};
 			};
 			side="West";
 			flags=6;
@@ -2616,7 +2632,7 @@ class Mission
 			};
 			id=2797;
 			type="USAF_MQ9";
-			atlOffset=0.011140823;
+			atlOffset=0.0059986115;
 		};
 		class Item43
 		{
@@ -11202,10 +11218,11 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={-6625.2715,20.773884,13937.787};
-				angles[]={0,1.7239472,0};
+				position[]={-6657.2446,20.498716,13915.139};
+				angles[]={0,1.7684495,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 				init="this setVariable[""IS_BLUFOR_ASSET"", true, true];";
@@ -11215,7 +11232,7 @@ class Mission
 			};
 			id=3153;
 			type="sab_c2a_1_1";
-			atlOffset=0.26490593;
+			atlOffset=0.04360199;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -11641,8 +11658,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={1135.5057,25.931208,11052.728};
-				angles[]={0.034151688,4.1440248,6.1975923};
+				position[]={1135.506,25.931183,11052.728};
+				angles[]={0.034156095,4.1440225,6.1975946};
 			};
 			side="Empty";
 			flags=4;
@@ -11855,6 +11872,553 @@ class Mission
 			name="marker_6";
 			type="flag_USA";
 			id=3196;
+		};
+		class Item86
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={-6632.2793,19.725277,13932.665};
+				angles[]={0,1.7775288,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="this setVariable[""is_prop"", true, true];" \n "";
+				reportRemoteTargets=1;
+				receiveRemoteTargets=1;
+				reportOwnPosition=1;
+			};
+			id=3198;
+			type="JS_JC_FA18E";
+			atlOffset=0.01849556;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="VehicleCustomization";
+					expression="if (local _this) then {([_this] + _value + [true]) call (uinamespace getvariable 'BIS_fnc_initVehicle')};";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"ARRAY"
+								};
+							};
+							class value
+							{
+								items=2;
+								class Item0
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+										class value
+										{
+											items=2;
+											class Item0
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="genericnavyE";
+												};
+											};
+											class Item1
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+										};
+									};
+								};
+								class Item1
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+										class value
+										{
+											items=4;
+											class Item0
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="r_wingfold";
+												};
+											};
+											class Item1
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+											class Item2
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="l_wingfold";
+												};
+											};
+											class Item3
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="js_jc_fa18_foldWings";
+					expression="[_this, _value] execVM 'js_jc_fa18\scripts\init\wing_fold.sqf';";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="js_jc_fa18_complexStartup";
+					expression="_this setVariable ['js_jc_fa18_complexStartup', _value];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ttt_servicemenu";
+					expression="_this setVariable ['ServiceMenu', _value]; if (!_value) then { _this animate ['service_menu_switch', 1, true]; };";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=1;
+						};
+					};
+				};
+				nAttributes=4;
+			};
+		};
+		class Item87
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={-6644.0356,19.715017,13924.3};
+				angles[]={0,1.7879153,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="this setVariable[""is_prop"", true, true];" \n "";
+				reportRemoteTargets=1;
+				receiveRemoteTargets=1;
+				reportOwnPosition=1;
+			};
+			id=3199;
+			type="JS_JC_FA18F";
+			atlOffset=0.010456085;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="VehicleCustomization";
+					expression="if (local _this) then {([_this] + _value + [true]) call (uinamespace getvariable 'BIS_fnc_initVehicle')};";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"ARRAY"
+								};
+							};
+							class value
+							{
+								items=2;
+								class Item0
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+										class value
+										{
+											items=2;
+											class Item0
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="genericnavyE";
+												};
+											};
+											class Item1
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+										};
+									};
+								};
+								class Item1
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+										class value
+										{
+											items=4;
+											class Item0
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="r_wingfold";
+												};
+											};
+											class Item1
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+											class Item2
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="l_wingfold";
+												};
+											};
+											class Item3
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="js_jc_fa18_foldWings";
+					expression="[_this, _value] execVM 'js_jc_fa18\scripts\init\wing_fold.sqf';";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="js_jc_fa18_complexStartup";
+					expression="_this setVariable ['js_jc_fa18_complexStartup', _value];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ttt_servicemenu";
+					expression="_this setVariable ['ServiceMenu', _value]; if (!_value) then { _this animate ['service_menu_switch', 1, true]; };";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=1;
+						};
+					};
+				};
+				nAttributes=4;
+			};
+		};
+		class Item88
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={-6619.124,19.793537,13941.157};
+				angles[]={0,1.7424325,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="this setVariable[""is_prop"", true, true];" \n "";
+				textures="USAF_421thFS";
+			};
+			id=3200;
+			type="USAF_F35A_LIGHT";
+			atlOffset=0.14229393;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="VehicleCustomization";
+					expression="if (local _this) then {([_this] + _value + [true]) call (uinamespace getvariable 'BIS_fnc_initVehicle')};";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"ARRAY"
+								};
+							};
+							class value
+							{
+								items=2;
+								class Item0
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+										class value
+										{
+											items=2;
+											class Item0
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"STRING"
+														};
+													};
+													value="USAF_421thFS";
+												};
+											};
+											class Item1
+											{
+												class data
+												{
+													class type
+													{
+														type[]=
+														{
+															"SCALAR"
+														};
+													};
+													value=1;
+												};
+											};
+										};
+									};
+								};
+								class Item1
+								{
+									class data
+									{
+										class type
+										{
+											type[]=
+											{
+												"ARRAY"
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 	};
 };
