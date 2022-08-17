@@ -33,6 +33,7 @@ missionNamespace setVariable ['CLEANUP_INTERVAL',       	500]; //  Interval in s
 missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	3, true]; //  Max number of pedestrians that can be spawned in a sector
 missionNamespace setVariable ['MAX_CIV_POP_TRAFFIC',    	3, true]; //  Max number of motorists that can be spawned in a sector
 missionNamespace setVariable ['BLUFOR_ACTIVATION_COUNT',    4]; // Number of Blufor players units needed in any sector to activate it
+missionNamespace setVariable ['ISRC_MARKER_UPDATE_INTERVAL',30];  // Interval in seconds to update the asset markers and server FPS counter 
 // See functions/server/{fnc_spawner}!
 missionNamespace setVariable ["LOCATION_TYPES", 			["NameLocal", "NameVillage", "NameCity", "NameCityCapital", "Strategic", "NameMarine"], true];
 missionNamespace setVariable ["DEBUG", 						false];

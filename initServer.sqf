@@ -596,7 +596,7 @@ _server_units_marker setMarkerType "loc_download";
         {if (local _x) then {_units = _units + 1}} forEach allUnits;
         _server_units_marker setMarkerText format["Server Units: %1", _units];
 
-        sleep 10;
+        sleep ISRC_MARKER_UPDATE_INTERVAL;
     };
 };
 
