@@ -14,10 +14,10 @@ if (leader group player == player) then {
 	if ("medic" in _role || "Banshee" in _role || "surgeon" in _role) then {
 		CRATE_PRIVS set ["MEDICAL", true];
 	};
-	if ("1-1" in _role || "1-2" in _role || "1-3" in _role || "1-4" in _role) then {
+	if ("1-1" in _role || "1-2" in _role) then {
 		CRATE_PRIVS set ["MIXED", true];
 	};
-	if ("1-4" in _role) then {
+	if ("1-2" in _role) then {
 		CRATE_PRIVS set ["AT", true];
 		CRATE_PRIVS set ["STATIC", true];
 	};

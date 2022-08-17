@@ -88,13 +88,15 @@ fnc_getCrateGroup = {
 	if ( "Legion 1-1" in _role) then {
 		_crate_group = "INFANTRY_1_1";
 	};
+/*
 	if ( "Legion 1-2" in _role) then {
 		_crate_group = "INFANTRY_1_2";
 	};
 	if ( "Legion 1-3" in _role) then {
 		_crate_group = "INFANTRY_1_3";
 	};
-	if ( "Legion 1-4" in _role) then {
+*/
+	if ( "Legion 1-2" in _role) then { // Notice: 1-4 has been removed, only 1-1/1-2 remain
 		_crate_group = "INFANTRY_1_4";
 	};
 	if ( "Keeper" in _role) then {
