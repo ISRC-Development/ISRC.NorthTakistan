@@ -170,6 +170,8 @@ _ctrlButton ctrlAddEventHandler ["ButtonClick",
 
 		[_vehicle] call fnc_cleanVehicle;
 
+		[_vehicle] execVM "functions\global\fnc_initAssetAppearance.sqf";  
+
 		[_vehicle] remoteExec ["fnc_purchaseVehicle", 2];
 	} else {
 		hint format["Insufficient Funds To Purchase %1!", _name];

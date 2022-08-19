@@ -56,3 +56,4 @@ true,
 [],
 true
 ] call CBA_fnc_addClassEventHandler;
+

@@ -121,3 +121,10 @@ __DS Test 1__
 
 > make spawner synchronous ie: remove the `spawn {}` code that runs in unscheduled env.
 
+> add h-barriers to build list
+
+TELEPORT TO FOB AND VEHICLE PURCHASE ADDACTIONS GO MISSINGG
+
+remove 240g from arsenal 
+
+patrols not moving to their destination?

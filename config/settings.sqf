@@ -1,6 +1,6 @@
 call compileFinal preprocessFileLineNumbers "config\defined_sectors.sqf";
 
-missionNamespace setVariable ['DO_RESTART', true];
+missionNamespace setVariable ['DO_RESTART', false];
 missionNamespace setVariable ["ADMINS", [
 	"76561199191114264", // Grom
 	"76561198118636599", // Toph
@@ -16,7 +16,7 @@ missionNamespace setVariable ["ADMINS", [
     "76561198178112458", // Leo B.
     "76561198414366102", // Doc
     "76561198009964108", // angry
-    "76561197960287930", // T_urb
+    "76561199041918350", // T_urb
     "76561198011818172", // crashton
     "76561198174392371", // Salami
     "76561198369871957"  // Unfortunate Son 

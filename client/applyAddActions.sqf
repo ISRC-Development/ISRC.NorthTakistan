@@ -245,7 +245,7 @@ fnc_applyAddactions = {
 			false,		// showWindow
 			false,		// hideOnUse
 			"",			// shortcut
-			"((player distance2D RESPAWN_LOCATION) < 100 || (player distance2D COP_LOCATION) < 100)", 	// condition
+			"((player distance2D RESPAWN_LOCATION) < 100 || (player distance2D COP_LOCATION) < 100 || (player distance2D FOB_BRAVO_LOCATION) < 100)", 	// condition
 			50,			// radius
 			false,		// unconscious
 			"",			// selection

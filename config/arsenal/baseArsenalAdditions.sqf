@@ -22,7 +22,26 @@ ISRC_base_arsenal_additions = [
     "Tier1_20Rnd_762x51_M62_SR25_Mag",
     "Tier1_20Rnd_762x51_M80_ball_SR25_Mag",
     "Tier1_20Rnd_762x51_M80A1_EPR_SR25_Mag",
-    "Tier1_20Rnd_762x51_Mk316Mod0_SR25_Mag"
+    "Tier1_20Rnd_762x51_Mk316Mod0_SR25_Mag",
+    "Tier1_100Rnd_762x51_Belt_M80",
+    "Tier1_250Rnd_762x51_Belt_M80",
+    "Tier1_100Rnd_762x51_Belt_M61_AP",
+    "Tier1_250Rnd_762x51_Belt_M61_AP",
+    "Tier1_100Rnd_762x51_Belt_M62_Tracer",
+    "Tier1_250Rnd_762x51_Belt_M62_Tracer",
+    "Tier1_100Rnd_762x51_Belt_M80A1_EPR",
+    "Tier1_250Rnd_762x51_Belt_M80A1_EPR",
+    "Tier1_100Rnd_762x51_Belt_M82_Blank",
+    "Tier1_250Rnd_762x51_Belt_M82_Blank",
+    "Tier1_100Rnd_762x51_Belt_M993_AP",
+    "Tier1_250Rnd_762x51_Belt_M993_AP",
+    "rhsgref_296Rnd_792x57_SmE_belt",
+    "rhsgref_296Rnd_792x57_SmE_notracers_belt",
+    "rhsgref_296Rnd_792x57_SmK_belt",
+    "rhsgref_296Rnd_792x57_SmK_alltracers_belt",
+    "ace_csw_20Rnd_20mm_G_belt",
+    "UK3CB_G3SG1_RIS",
+    "UK3CB_G3SG1"
 ];
 
 
