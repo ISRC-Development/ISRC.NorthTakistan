@@ -41,7 +41,28 @@ ISRC_base_arsenal_additions = [
     "rhsgref_296Rnd_792x57_SmK_alltracers_belt",
     "ace_csw_20Rnd_20mm_G_belt",
     "UK3CB_G3SG1_RIS",
-    "UK3CB_G3SG1"
+    "UK3CB_G3SG1",
+    "UK3CB_G3_20rnd_762x51_R", 
+    "UK3CB_G3_20rnd_762x51_RT",
+    "UK3CB_G3_20rnd_762x51_G", 
+    "UK3CB_G3_20rnd_762x51_GT",
+    "UK3CB_G3_20rnd_762x51_Y", 
+    "UK3CB_G3_20rnd_762x51_YT",
+    "UK3CB_G3_20rnd_762x51_W", 
+    "UK3CB_G3_20rnd_762x51_WT",
+    "UK3CB_G3_50rnd_762x51",   
+    "UK3CB_G3_50rnd_762x51_R", 
+    "UK3CB_G3_50rnd_762x51_RM",
+    "UK3CB_G3_50rnd_762x51_RT",
+    "UK3CB_G3_50rnd_762x51_Y", 
+    "UK3CB_G3_50rnd_762x51_YM",
+    "UK3CB_G3_50rnd_762x51_YT",
+    "UK3CB_G3_50rnd_762x51_G",
+    "UK3CB_G3_50rnd_762x51_GM",
+    "UK3CB_G3_50rnd_762x51_GT",
+    "UK3CB_G3_50rnd_762x51_W",
+    "UK3CB_G3_50rnd_762x51_WM",
+    "UK3CB_G3_50rnd_762x51_WT"
 ];
 
 

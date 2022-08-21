@@ -118,6 +118,7 @@ LOGISTICS_SUPPLIES_CLASSES = createHashMapFromArray[
     ]
 ];
 
+/*
 // Do inits for our logi supplies
 {
 	private _thisItem  = LOGISTICS_SUPPLIES_CLASSES get _x;
@@ -158,6 +159,7 @@ LOGISTICS_SUPPLIES_CLASSES = createHashMapFromArray[
         createHashMapFromArray[ ["classname", "CargoNet_01_barrels_F"], ["name", "Fuel"], ["reward", 10000], ["cargo_size", 6]]
     ]
 ];
+*/
 
 // Do init for our logi reciprocal
 ["B_Slingload_01_Cargo_F", "init",

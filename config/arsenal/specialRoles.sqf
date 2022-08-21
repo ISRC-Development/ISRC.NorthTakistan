@@ -371,6 +371,6 @@ ISRC_arsenal_idf           = [
     "SwitchBlade_300_Tube_Woodland",
     "SwitchBlade_600_Tube_Desert",
     "SwitchBlade_600_Tube_Woodland"
-] + ISRC_arsenal_squad_leader;
+] + ISRC_arsenal_hq;
 
 ISRC_arsenal_all           = ISRC_arsenal_idf + ISRC_arsenal_at_spec + ISRC_arsenal_machinegunner + ISRC_arsenal_marksman + ISRC_arsenal_crew + ISRC_arsenal_medical + ISRC_arsenal_medical_adv + ISRC_arsenal_engineer + ISRC_arsenal_grenedier + ISRC_arsenal_rotary_pilot + ISRC_arsenal_fixedw_pilot + ISRC_arsenal_squad_leader + ISRC_arsenal_hq;
