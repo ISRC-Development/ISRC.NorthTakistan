@@ -1,9 +1,9 @@
+disableSerialization; 
+private _display = findDisplay 46 createDisplay "RscDisplayEmpty"; 
+
 PURCHASE_MENU_OPEN       = false;
 PURCHASE_MENU_CART_ITEMS = [];
 CURRENT_FUNDING_BALANCE_BM = [missionNamespace, "CURRENT_FUNDING_BALANCE", 0] call BIS_fnc_getServerVariable;
-
-disableSerialization; 
-private _display = findDisplay 46 createDisplay "RscDisplayEmpty"; 
 
 ASSET_LISTBOX_POS = [0.25, 0, 0.5, 0.5];
 
@@ -132,8 +132,8 @@ _cancel ctrlCommit 0;
 _cancel ctrlSetText " CANCEL "; 
 _cancel ctrlAddEventHandler ["ButtonClick", {
 	params ["_ctrl"]; 
- 	_display = ctrlParent _ctrl; 
- 	_display closeDisplay 1;
+	_display = ctrlParent _ctrl; 
+	_display closeDisplay 1;
 	PURCHASE_MENU_OPEN = false; 
 }]; 
 

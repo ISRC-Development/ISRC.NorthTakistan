@@ -127,14 +127,16 @@ TELEPORT TO FOB AND VEHICLE PURCHASE ADDACTIONS GO MISSINGG
 
 remove 240g from arsenal 
 
-patrols not moving to their destination?
-
-HVT LOOP STOPPED???
+patrols not moving to their destination
 
 airdrops in the field
 
 turn down armor
 
 too easy!
+
+try not doing uncon fix on new server
+
+big spawns baby!
 
 

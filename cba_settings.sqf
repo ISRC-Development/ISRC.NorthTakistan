@@ -50,11 +50,11 @@ ace_arsenal_fontHeight = 4.5;
 
 // ACE Artillery
 force ace_artillerytables_advancedCorrections = false;
-force ace_artillerytables_disableArtilleryComputer = false;
+force force ace_artillerytables_disableArtilleryComputer = true;
 force ace_mk6mortar_airResistanceEnabled = false;
-force ace_mk6mortar_allowCompass = true;
-force ace_mk6mortar_allowComputerRangefinder = true;
-force ace_mk6mortar_useAmmoHandling = false;
+force force ace_mk6mortar_allowCompass = true;
+force force ace_mk6mortar_allowComputerRangefinder = false;
+force force ace_mk6mortar_useAmmoHandling = true;
 
 // ACE Captives
 force force ace_captives_allowHandcuffOwnSide = true;
@@ -423,7 +423,9 @@ force force aceP_circulation_surgicalLocation = 3;
 force force aceP_circulation_surgicalTime = 8;
 
 // ACE Pharmacy - Medications
+force aceP_circulation_aiEnableAdvanced = false;
 force force aceP_circulation_blockChance = 1.14888;
+force aceP_circulation_factorDrugs = 2;
 force force aceP_circulation_IOestablish = 4;
 force force aceP_circulation_IVdrop = 1200;
 force force aceP_circulation_IVdropEnable = true;
@@ -433,6 +435,8 @@ force force aceP_circulation_IVreuse = true;
 force force aceP_circulation_kidneyAction = false;
 force force aceP_circulation_maxStack = 5;
 force force aceP_circulation_PushTime = 4;
+force aceP_circulation_surgicalDrugs = 2;
+force aceP_circulation_vasoDrugs = 1;
 
 // ACE Pointing
 force force ace_finger_enabled = true;
@@ -767,6 +771,8 @@ diwako_dui_use_layout_editor = false;
 force force emr_main_allowMidairClimbing = true;
 force force emr_main_animSpeedCoef = 1;
 force force emr_main_animSpeedStaminaCoef = 0;
+force emr_main_assistDuty = 1.5;
+force emr_main_assistHeight = 1;
 force force emr_main_blacklistStr = "";
 force force emr_main_climbingEnabled = true;
 force force emr_main_climbOnDuty = 3.4;
@@ -777,6 +783,7 @@ force force emr_main_enableWalkableSurface = true;
 force force emr_main_enableWeightCheck = false;
 force force emr_main_hintType = 2;
 force force emr_main_jumpDuty = 1;
+force emr_main_jumpForwardVelocity = 1.2;
 force force emr_main_jumpingEnabled = true;
 force force emr_main_jumpingLoadCoefficient = 0.376004;
 force force emr_main_jumpVelocity = 3.4;
@@ -832,13 +839,58 @@ force force grad_trenches_functions_vehicleEnvelopeDamageMultiplier = 1;
 force force grad_trenches_functions_vehicleEnvelopeDigTime = 25;
 force force grad_trenches_functions_vehicleEnvelopeRemovalTime = -1;
 
+// LAMBS Danger
+force lambs_danger_cqbRange = 60;
+lambs_danger_disableAIAutonomousManoeuvres = false;
+lambs_danger_disableAIDeployStaticWeapons = false;
+lambs_danger_disableAIFindStaticWeapons = false;
+lambs_danger_disableAIHideFromTanksAndAircraft = false;
+lambs_danger_disableAIPlayerGroup = false;
+lambs_danger_disableAIPlayerGroupReaction = false;
+lambs_danger_disableAutonomousFlares = false;
+lambs_danger_disableAutonomousSmokeGrenades = false;
+force lambs_danger_panicChance = 0.1;
+
+// LAMBS Danger Eventhandlers
+force lambs_eventhandlers_ExplosionEventHandlerEnabled = true;
+force lambs_eventhandlers_ExplosionReactionTime = 9;
+
+// LAMBS Danger WP
+force lambs_wp_autoAddArtillery = false;
+
+// LAMBS Main
+force lambs_main_combatShareRange = 200;
+force lambs_main_debug_drawAllUnitsInVehicles = false;
+force lambs_main_debug_Drawing = false;
+force lambs_main_debug_FSM = false;
+force lambs_main_debug_FSM_civ = false;
+force lambs_main_debug_functions = false;
+force lambs_main_debug_RenderExpectedDestination = false;
+lambs_main_disableAICallouts = false;
+lambs_main_disableAIDodge = false;
+lambs_main_disableAIFleeing = false;
+lambs_main_disableAIGestures = false;
+lambs_main_disableAutonomousMunitionSwitching = false;
+lambs_main_disablePlayerGroupSuppression = false;
+force lambs_main_indoorMove = 0.1;
+force lambs_main_maxRevealValue = 1;
+force lambs_main_minFriendlySuppressionDistance = 5;
+force lambs_main_minObstacleProximity = 5;
+force lambs_main_minSuppressionRange = 50;
+force lambs_main_radioBackpack = 2000;
+lambs_main_radioDisabled = false;
+force lambs_main_radioEast = 500;
+force lambs_main_radioGuer = 500;
+force lambs_main_radioShout = 100;
+force lambs_main_radioWest = 500;
+
 // Laxemann Align
 force force L_Align_enabled = true;
 force force L_Align_steadyShake_enabled = true;
 
 // Laxemann Immerse
 force force L_Immerse_exShake = true;
-force force L_Immerse_force = true;
+force force L_Immerse_force = false;
 force force L_Immerse_recoil = true;
 force force L_Immerse_twitch = true;
 
@@ -851,6 +903,12 @@ force force L_Suppress_halting = true;
 force force L_Suppress_intensity = 0.328219;
 force force L_Suppress_playerSwabEnabled = true;
 force force L_Suppress_recovery = 0.56882;
+
+// Recoil coefficient changer
+force force RECOIL_incrase_on = 0.635278;
+force force RECOIL_loop_on = true;
+force force RECOIL_random_on = true;
+force force SWAY_incrase_on = 0.2;
 
 // TFAR - Clientside settings
 TFAR_curatorCamEars = true;
@@ -1032,6 +1090,7 @@ zen_faction_filter_0_rhsgref_faction_chdkz_groups = true;
 zen_faction_filter_0_rhsgref_faction_tla = true;
 zen_faction_filter_0_rhssaf_faction_airforce_opfor = true;
 zen_faction_filter_0_rhssaf_faction_army_opfor = true;
+zen_faction_filter_0_sab_milavi_faction_red = true;
 zen_faction_filter_0_UK3CB_AAF_O = true;
 zen_faction_filter_0_UK3CB_ADA_O = true;
 zen_faction_filter_0_UK3CB_ADC_O = true;
@@ -1098,6 +1157,7 @@ zen_faction_filter_1_rhsgref_faction_cdf_ground_b = true;
 zen_faction_filter_1_rhsgref_faction_cdf_ground_b_groups = true;
 zen_faction_filter_1_rhsgref_faction_cdf_ng_b = true;
 zen_faction_filter_1_rhsgref_faction_hidf = true;
+zen_faction_filter_1_sab_milavi_faction_blue = true;
 zen_faction_filter_1_UK3CB_AAF_B = true;
 zen_faction_filter_1_UK3CB_ADA_B = true;
 zen_faction_filter_1_UK3CB_ADC_B = true;
@@ -1157,6 +1217,7 @@ zen_faction_filter_2_rhsgref_faction_un = true;
 zen_faction_filter_2_rhssaf_faction_airforce = true;
 zen_faction_filter_2_rhssaf_faction_army = true;
 zen_faction_filter_2_rhssaf_faction_un = true;
+zen_faction_filter_2_sab_milavi_faction_green = true;
 zen_faction_filter_2_UK3CB_AAF_I = true;
 zen_faction_filter_2_UK3CB_ADA_I = true;
 zen_faction_filter_2_UK3CB_ADC_I = true;
@@ -1196,6 +1257,7 @@ zen_faction_filter_2_UK3CB_TKP_I = true;
 zen_faction_filter_2_UK3CB_UN_I = true;
 zen_faction_filter_3_CIV_F = true;
 zen_faction_filter_3_CIV_IDAP_F = true;
+zen_faction_filter_3_EdCat_jbad_vehicles = true;
 zen_faction_filter_3_EdCat_Things = true;
 zen_faction_filter_3_IND_L_F = true;
 zen_faction_filter_3_rds_pol_civ = true;

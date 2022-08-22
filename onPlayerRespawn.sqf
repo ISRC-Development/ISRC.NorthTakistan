@@ -10,7 +10,7 @@ setCurrentChannel 0; // This might be an issue???
 
 [_newUnit] call fnc_applyAddactions;
 
-player setPosASL RESPAWN_LOCATION;
+player setPos RESPAWN_LOCATION;
 
 _name     = name _newUnit;
 _groupId  = groupId group _newUnit;

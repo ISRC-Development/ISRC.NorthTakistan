@@ -19,15 +19,17 @@ missionNamespace setVariable ["ADMINS", [
     "76561199041918350", // T_urb
     "76561198011818172", // crashton
     "76561198174392371", // Salami
-    "76561198369871957"  // Unfortunate Son 
+    "76561198369871957", // Unfortunate Son 
+    "76561198038169434", // LazyTitan
+    "76561198044173784"  // Thunder
 ]];
 missionNamespace setVariable ['TIME_MULTIPLIER',   8];
 missionNamespace setVariable ['RESTART_INTERVAL_SECONDS',   18000, true];
 missionNamespace setVariable ['MAX_ACTIVE_SECTORS',     	2];
 missionNamespace setVariable ['ISRC_CAPTURING_ACCOUNTING_DELAY', 50]; // seconds in delay from spawn to monitoring current spawned units, enabling capture.
 missionNamespace setVariable ['SECTOR_CAPTURE_COEFFICIENT', 0.06]; // < 6% of the total enemy population is a CAPTURE
-missionNamespace setVariable ['RESPAWN_LOCATION',       	[-6580.57, 13945.2, 19], true];
-missionNamespace setVariable ['FOB_BRAVO_LOCATION',       	[1162.98,11088.3,0], true]; // [0, 0, 0] for none
+missionNamespace setVariable ['RESPAWN_LOCATION',       	[2376.08,5035.81,0], true];
+missionNamespace setVariable ['FOB_BRAVO_LOCATION',       	[0,0,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['FOB_CHARLIE_LOCATION',       [0,0,0], true]; // [0, 0, 0] for none
 missionNamespace setVariable ['CLEANUP_INTERVAL',       	500]; //  Interval in seconds to run cleanup
 missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	3, true]; //  Max number of pedestrians that can be spawned in a sector
@@ -52,8 +54,8 @@ missionNamespace setVariable ["ZEUS_LOGISTICS_SUPPLIES_CLASSES", [
     "CargoNet_01_barrels_F"
 ], true];
 
-missionNamespace setVariable ["VEHICLE_YARD_CENTER", [1163.8,11220,0], true]; // CENTER OF THE RESPAWN YARD
-missionNamespace setVariable ["VEHICLE_YARD_RADIUS", 55, true]; // RADIUS OF THE RESPAWN YARD
+missionNamespace setVariable ["VEHICLE_YARD_CENTER", [2344.19,4774.02,0], true]; // CENTER OF THE RESPAWN YARD
+missionNamespace setVariable ["VEHICLE_YARD_RADIUS", 80, true]; // RADIUS OF THE RESPAWN YARD
 
 missionNamespace setVariable ["ENEMY_SIDE", east, true]; // Side Of General Enemy
 missionNamespace setVariable ["FRIENDLY_SIDE", west, true]; // Side Of friendlies
@@ -362,7 +364,55 @@ missionNamespace setVariable ["ISRC_ENEMY_PATROLS", [
 missionNamespace setVariable ["ARTY_CONTROLLER_FOB_BLACKLIST_RANGE", 800, true];
 
 missionNamespace setVariable ["CLEANUP_WHITELIST_AREAS", [
-    [RESPAWN_LOCATION, 500, 500, 0, false]
+    //[RESPAWN_LOCATION, 500, 500, 0, false]
+]];
+
+missionNamespace setVariable ["ALREADY_CAPTURED", [
+    "Coastal Zone - Alpha",
+    "Coastal Zone - Bravo",
+    "Coastal Zone - Charlie",
+    "Coastal Zone - Delta",
+    "Radio Tower 031197",
+    "Radio Tower 047194",
+    "Chabahar Estuary",
+    "POI 013177",
+    "Mantiq",
+    "Chabahar River Mouth",
+    "Imam Ali Int. Port",
+    "Chaman",
+    "Qorghan",
+    "POI 058187",
+    "POI 070186",
+    "Raqol",
+    "Kushkak",
+    "POI 089186",
+    "Tarchi",
+    "Jamak",
+    "Radio Tower 015163",
+    "Radio Tower 008159",
+    "Radio Tower 012155",
+    "Radio Tower 009145",
+    "Sya Dara Iron Mine",   
+    "Radio Tower 024172",
+    "Radio Tower 036171",
+    "Sarqul",
+    "Al Hamza Air Base",
+    "Rasman",
+    "The Villa",
+    "POI 103181",
+    "Aynak Copper Mine",
+    "Chahe Shrin",
+    "Zari",
+    "Lalezar",
+    "POI 018109",
+    "Bastam",
+    "Radio Tower 010102",
+    "Radio Tower 013088",     
+    "Radio Tower 036088",
+    "Imarat",
+    "Garmarund",     
+    "Radio Tower 044115",
+    "Hajigak Iron Mine"
 ]];
 
 /*

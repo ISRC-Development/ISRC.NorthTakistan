@@ -15,6 +15,13 @@ call compileFinal preprocessFileLineNumbers "client\experiments\electronic_warfa
 
 missionNamespace setVariable ["MANAGED_PURCHASED_VEHICLES", []];
 
+// clean up the vehicle yard
+{
+    if ( !("EmptyDetector" in typeOf _x) && !("trigger" in typeOf _x) ) then {
+        hideObjectGlobal _x;
+    };
+} forEach nearestTerrainObjects [VEHICLE_YARD_CENTER, [], VEHICLE_YARD_RADIUS];
+
 fnc_HcOnline = {
     private _online = false;
     {
@@ -960,7 +967,7 @@ fnc_establishSector = {
     private _meanRad = [_radiusInfantry, _radiusVehicles, _radiusAir,  _radiusArmor] call BIS_fnc_geometricMean;
 
     // Create Sector if not already captured
-    if !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) then {
+    if ( !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && !(_name in ALREADY_CAPTURED) ) then {
         
         _marker setMarkerColor "ColorRed";
 
@@ -1273,7 +1280,7 @@ fnc_removeOne = {
                 MANAGED_PURCHASED_VEHICLES = MANAGED_PURCHASED_VEHICLES - [_x];             
             };
         } forEach MANAGED_PURCHASED_VEHICLES; 
-        sleep 10;
+        sleep 25;
     };
 };
 
@@ -1360,26 +1367,6 @@ fnc_toggleHCL = {
         ["IntelGreen", ["Headless Client Disabled"]] remoteExec ["BIS_fnc_showNotification"];
     };
 };
-
-// NOT WORKING!!!
-/*
-fnc_server_hideObjects = {
-    params["_pos", "_radius", ["_types", []]];
-    {
-        hideObjectGlobal _x;
-    } forEach nearestTerrainObjects [_pos, [], _radius];
-
-    {
-        hideObjectGlobal _x;
-    } forEach nearestObjects [_pos, [], _radius];
-};
-
-{
-    private _pos = _x select 0;
-    private _radius = _x select 1;
-    [_pos, _radius] call fnc_server_hideObjects;
-} forEach ISRC_TERRAIN_REMOVAL_POINTS;
-*/
 
 // HVTs
 [] spawn {

@@ -1,5 +1,5 @@
 // ["veh type", [ [class, name, price, description, init, initscope(remoteexec)?], ...] ]
-// > [i] init, initscope are now obselete! See 
+// > [i] init, initscope are now obselete! See
 // > [i] description is not used at this time.
 
 PURCHASE_MENU_ITEMS = [
@@ -22,7 +22,6 @@ PURCHASE_MENU_ITEMS = [
 	[
 		"Artillery",
 		[
-			["rhsusf_M142_usarmy_WD", "M142 HIMARS", 25000000, "", "", 0],
 			["itc_land_rhsusf_m109_usarmy", "M109 Paladin", 25000000, "", "", 0]
 		]
 	],
@@ -69,8 +68,7 @@ PURCHASE_MENU_ITEMS = [
 		[
 			["RHSGREF_A29B_HIDF", "A29 Super Tucano", 2500000, "", "", 0],
 			["USAF_A10", "A-10C Thunderbolt II", 8000000, "", "", 0],
-			["JS_JC_FA18E", "F/A-18E", 15000000, "", "", 0],
-			["JS_JC_FA18F", "F/A-18F", 20000000, "", "", 0],
+			["USAF_F22_EWP_AA", "F-22 Raptor (AA)", 15000000],
 			["USAF_F35A", "F-35A Lightning (Stealth)", 30000000, "", "", 0],
 			["USAF_C130J", "C-130J (Transport)", 50000000, "", "", 0]
 		]

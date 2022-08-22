@@ -2,6 +2,7 @@ ISRC_BUILDABLE_OBJECTS = [
 	[
 		"Fortifications",
 		[
+			["Camonet", "CamoNet_INDP_F", 500],
 			["Bunker (Woodland)", "UK3CB_Nest", 1000],
 			["Bunker   (Desert)", "UK3CB_Nest_Des", 1000],
 			["H-Barrier Long (W)", "Land_HBarrier_01_wall_6_green_F", 1000],

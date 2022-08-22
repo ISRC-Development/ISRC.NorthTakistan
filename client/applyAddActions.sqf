@@ -42,9 +42,9 @@ fnc_applyAddactions = {
 					if !(isNull objectParent player) then {
 						private _vehicle = vehicle player;
 						_vehicle setDir 0;
-						_vehicle setPosASL RESPAWN_LOCATION; // using ASL for nimitz etc
+						_vehicle setPos RESPAWN_LOCATION; // using ASL for nimitz etc
 					} else {
-						player setPosASL RESPAWN_LOCATION;
+						player setPos RESPAWN_LOCATION;
 					};
 				};
 			};
