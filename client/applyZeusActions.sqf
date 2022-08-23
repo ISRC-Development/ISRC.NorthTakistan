@@ -4,7 +4,8 @@ if !([_m, "Misc: Bypass Cleanup Script", {
 	_pos        = _this select 0;
 	_zen_target = _this select 1;
 	if (isNull _zen_target) exitWith {hint "Error: Place on an object!"};
-	[_zen_target, "IS_PROP", true] call BIS_fnc_setServerVariable;
+	// [_zen_target, "IS_PROP", true] call BIS_fnc_setServerVariable;
+	[_zen_target, ["IS_PROP", true]] remoteExec ["setVariable", 2, _zen_target];
 	hint "Success: Bypass Cleanup Script enabled for the object!";
 }, "\a3\modules_f\data\iconSavegame_ca.paa"] call zen_custom_modules_fnc_register) then {
 	systemChat "[Bishop] Failed to add Zeus module feature: Bypass Cleanup Script";

@@ -1390,7 +1390,7 @@ fnc_toggleHCL = {
                 [true] call fnc_getEnemySector select 1, 
                 selectRandom[300, 500, 800, 1200]
             ];
-            if (!hasInterface && isServer) then { // Check if HC is available for patrol spawn // call fnc_HcOnline
+            if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
                 [_args, "functions\fnc_spawn_patrol.sqf"] remoteExec ["execVM", hc1];
             } else {
                 _args execVM "functions\fnc_spawn_patrol.sqf";
@@ -1403,7 +1403,7 @@ fnc_toggleHCL = {
 
 [] spawn {
 	while {true} do {
-		0 setfog 0; // Fuck Fog!!!
+		0 setfog 0; // Fuck Fog, all my homies hate fog!!!
 		forceWeatherChange; 
 		sleep 150; //  2.5 minute loop
 	};

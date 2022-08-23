@@ -28,6 +28,7 @@ fnc_processAIGroup = {
 		[_group, _patrol_pos, _patrol_rad] call BIS_fnc_taskPatrol;			
 	};
 
+/*
 	if !(_isCrew) then {
 		{
 			[_x] spawn {
@@ -40,6 +41,7 @@ fnc_processAIGroup = {
 		} forEach units _group;	
 		[_group, 25] call fnc_delete_lazy_dudes; // delete lazy dudes - 30 seconds???
 	};
+*/
 };
 
 fnc_processCivlian = {

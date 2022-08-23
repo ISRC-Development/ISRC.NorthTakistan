@@ -65,7 +65,7 @@ for "_i" from 1 to random (ISRC_ENEMY_BATTLEGROUP_WEIGHTS get "infantry") do {
 	private _unit = _group createUnit [selectRandom _infantry_choices, _group_pos, [], 0, "NONE"];
 	//_unit setVectorUp surfaceNormal (getposATL _unit);	
 	[_unit] call fnc_setRandomIdentity;
-	[_unit] call fnc_freezefix;
+	//[_unit] call fnc_freezefix;
 	_infantryManager pushBack [_unit, getPos _unit];
 };
 

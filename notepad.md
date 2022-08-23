@@ -140,3 +140,6 @@ try not doing uncon fix on new server
 big spawns baby!
 
 
+check if buldings near group, garrison if so
+
+

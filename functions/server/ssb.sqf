@@ -1,7 +1,3 @@
-// Tracker script
-// version 4.4
-// by nkenny, modified by Grom.
-
 /*
 
   Slower more deliberate tracking and attacking script
