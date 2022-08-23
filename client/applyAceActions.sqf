@@ -160,24 +160,6 @@ if (leader group player == player) then {
 _action = ["actionCheckSectors","Liberation Info","", {execVM "client\fnc_showCurrentInfo.sqf";}, {true}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-/*
-// ROOT MENU - ISRC
-_action = [ "isrcRootMenu", "ISRC", "", {}, {true}] call ace_interact_menu_fnc_createAction;
-[player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject; 
-
-// Checkin
-_action = ["actionCheckIn","Check In","",
-{execVM "client\functions\fnc_checkIn.sqf";}
-,{true}] call ace_interact_menu_fnc_createAction;
-[player, 1, ["ACE_SelfActions", "isrcRootMenu"], _action] call ace_interact_menu_fnc_addActionToObject;
-
-// News
-_action = ["actionCheckNews","ISRC News","",
-{execVM "client\functions\fnc_checkNews.sqf";}
-,{true}] call ace_interact_menu_fnc_createAction;
-[player, 1, ["ACE_SelfActions", "isrcRootMenu"], _action] call ace_interact_menu_fnc_addActionToObject;
-*/
-
 // classname, name, reward
 {
 	private _thisItem = LOGISTICS_SUPPLIES_CLASSES get _x;
