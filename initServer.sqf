@@ -1142,7 +1142,6 @@ fnc_getMarineLocation = {
 
 // `call fnc_getEnemySector` Returns enemy sector or false if none found.
 // `[true] call fnc_getEnemySector` Returns captured sector or false if none found.
-
 fnc_getEnemySector = {
     params [["_getcapturedsector", false]];
     private _deployment = false;
@@ -1403,7 +1402,7 @@ fnc_toggleHCL = {
                     20,
                     0
                 ] call BIS_fnc_findSafePos, 
-                [true] call fnc_getEnemySector select 1,
+                [true] call fnc_getEnemySector select 1, 
                 selectRandom[300, 500, 800, 1200]
             ];
             if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
@@ -1412,7 +1411,7 @@ fnc_toggleHCL = {
                 _args execVM "functions\fnc_spawn_patrol.sqf";
             };
         };
-
+        
         sleep selectRandom[200, 300, 400]; // 15, 16, 17 minutes
     };
 };
