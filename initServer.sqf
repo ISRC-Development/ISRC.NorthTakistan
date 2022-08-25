@@ -67,6 +67,13 @@ fnc_marker = {
     };
 };
 
+fnc_sum = {
+    params["_array"];
+    private _sum = 0;
+    {_sum = _sum + _x} forEach _array;
+    _sum
+};
+
 fnc_getPlayersMeanPos = {
     private _pos     = false;
 	private _players = [];
@@ -1123,37 +1130,28 @@ fnc_processPurchasedVehicle = {
     _vehicle setVariable ["is_purchased_asset", true, true];
 };
 
-fnc_getEnemySector = {
-    params [["_getcapturedsector", false]];
-    private _deployment = false;
-    private _safeCheck  = 0;
-    if !(_getcapturedsector) then {
-        while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom (call fnc_getAllLocations);
-            private _name     = _location select 0;
-            if (!(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && (_location select 2) != "NameMarine") then {
-                _deployment = _location;
-            };
-            _safeCheck = _safeCheck + 1;
-            if (_safeCheck > 1024) then {
-                _deployment = false;
-            };
-        };        
-    } else {
-        while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom (call fnc_getAllLocations);
-            private _name     = _location select 0;
-            if (_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
-                _deployment = _location;
-            };
-            _safeCheck = _safeCheck + 1;
-            if (_safeCheck > 1024) then {
-                _deployment = false;
-            };
-        };       
-    };
-    _deployment
+fnc_getMarineLocation = {
+    private _marineSector = [];
+    private _location = call fnc_GetAllLocations;
+    {
+        if ((_x select 2) = "NameMarine") then{
+            _marineSector = pushback _x
+        };
+    } forEach in _location;
 };
+
+fnc_getEnemySector = {
+    private _spawnLocation;
+    private _safeCheck = 0;
+    private _possibleLocations = call fnc_getAllLocations;
+    private _marineLocations = call fnc_getMarineLocations;
+    _possibleLocations = _possibleLocations - (profileNameSpace getVariable "CAPTURED_SECTORS");
+    _possibleLocations = _possibleLocations - _marineLocations
+    _spawnLocation = selectRandom _possibleLocations;
+
+    _spawnLocation
+};
+
 
 [] spawn {
 
@@ -1308,9 +1306,9 @@ forceWeatherChange;
 
         private _deployment = false;
         while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom (call fnc_getAllLocations);
+            private _location = selectRandom ((call fnc_getAllLocations) - ;
             private _name     = _location select 0;
-            if !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
+            if !((_location select 2) != "NameMarine") then {
                 _deployment = _location;
             };
         };

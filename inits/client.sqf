@@ -33,8 +33,11 @@ call compileFinal preprocessFileLineNumbers "config\arsenal\military_gear_pack\i
 			if ("AT" in (roleDescription player)) then {
 				_myArsenal = _myArsenal + ISRC_arsenal_at_spec;
 			};
-			if ("Marksman" in (roleDescription player) || "Recon Sniper" in (roleDescription player) || "Recon Spotter" in (roleDescription player)) then {
+			if ("Marksman" in (roleDescription player)) then {
 				_myArsenal = _myArsenal + ISRC_arsenal_marksman + MILGP_MARKSMAN;
+			};
+			if ("Recon Sniper" in (roleDescription player) || "Recon Spotter" in (roleDescription player)) then {
+				_myArsenal = _myArsenal + ISRC_arsenal_phantom + MILGP_MARKSMAN;
 			};
 			if ("Medic" in (roleDescription player)) then {
 				_myArsenal = _myArsenal + ISRC_arsenal_medical + MILGP_MEDIC;

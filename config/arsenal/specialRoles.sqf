@@ -42,15 +42,19 @@ ISRC_arsenal_squad_leader  = [
 ISRC_arsenal_at_spec = [
 	"rhs_weap_M136",
 	"rhs_weap_M136_hedp",
+    "rhs_weap_M136_hp",
 	"rhs_weap_fim92",
-	"launch_MRAWS_olive_F",
+	"launch_MRAWS_green_F",
     "Weapon_launch_NLAW_F"
 ];
+
 ISRC_arsenal_machinegunner = [
 	"rhs_weap_m240B",
+    "rhs_weap_m240G",
 	"rhs_weap_m249_light_L",
 	"rhs_weap_m249_light_S",
 	"Tier1_MK48_Mod0",
+    "LMG_Mk200_F",
     "Tier1_100Rnd_762x51_Belt_M80",
     "Tier1_250Rnd_762x51_Belt_M80",
     "Tier1_100Rnd_762x51_Belt_M61_AP",
@@ -61,8 +65,11 @@ ISRC_arsenal_machinegunner = [
     "Tier1_250Rnd_762x51_Belt_M80A1_EPR",
     "Tier1_100Rnd_762x51_Belt_M993_AP",
     "Tier1_250Rnd_762x51_Belt_M993_AP",
+    "200RND_65x39_cased_box",
+    "200RND_65x39_cased_box_tracer_red",
     "ACE_SpareBarrel"
 ];
+
 ISRC_arsenal_marksman 	   = [
 	"rhs_weap_m14",
     "rhs_weap_m14_wd",
@@ -80,6 +87,7 @@ ISRC_arsenal_marksman 	   = [
     "rhs_weap_m14_socom_rail",
     "rhs_weap_m14ebrri",
     "rhs_weap_M107",
+    "srifle_mas_cia_LRR_F",
     "rhs_5Rnd_338lapua_t5000",
     "rhsusf_acc_nxs_3515x50_md",
     "rhsusf_acc_nxs_3515x50f1_md",
@@ -88,6 +96,47 @@ ISRC_arsenal_marksman 	   = [
     "rhsusf_acc_nxs_3515x50f1_h58_sun",
     "rhsusf_acc_nxs_5522x56_md",
     "rhsusf_acc_nxs_5522x56_md_sun",
+    "10RND_mas_cia_408_Mag",
+    "10RND_mas_cia_408_APDS_Mag"
+    "ACE_optic_LRPS_2D",
+    "ACE_optic_LRPS_PIP",
+    "optic_LRPS_tna_F",
+    "optic_LRPS_ghex_F",
+    "Laserdesignator",
+    "Laserdesignator_02",
+    "Laserdesignator_03",
+    "Laserdesignator_01_khk_F",
+    "Laserdesignator_02_ghex_F" 
+];
+
+ISRC_arsenal_phantom 	   = [
+	"rhs_weap_m14",
+    "rhs_weap_m14_wd",
+    "rhs_weap_m14_d",
+    "rhs_weap_m14_fiberglass",
+    "rhs_weap_m14_rail",
+    "rhs_weap_m14_rail_wd",
+    "rhs_weap_m14_rail_d",
+    "rhs_weap_m14_rail_fiberglass",
+    "rhs_weap_m14_ris",
+    "rhs_weap_m14_ris_wd",
+    "rhs_weap_m14_ris_d",
+    "rhs_weap_m14_ris_fiberglass",
+    "rhs_weap_m14_socom",
+    "rhs_weap_m14_socom_rail",
+    "rhs_weap_m14ebrri",
+    "rhs_weap_M107",
+    "srifle_mas_cia_LRR_F",
+    "rhs_5Rnd_338lapua_t5000",
+    "rhsusf_acc_nxs_3515x50_md",
+    "rhsusf_acc_nxs_3515x50f1_md",
+    "rhsusf_acc_nxs_3515x50f1_md_sun",
+    "rhsusf_acc_nxs_3515x50f1_h58",
+    "rhsusf_acc_nxs_3515x50f1_h58_sun",
+    "rhsusf_acc_nxs_5522x56_md",
+    "rhsusf_acc_nxs_5522x56_md_sun",
+    "10RND_mas_cia_408_Mag",
+    "10RND_mas_cia_408_APDS_Mag"
     "ACE_optic_LRPS_2D",
     "ACE_optic_LRPS_PIP",
     "optic_LRPS_tna_F",
@@ -102,14 +151,23 @@ ISRC_arsenal_marksman 	   = [
     "U_I_FullGhillie_sard",
     "U_I_FullGhillie_ard",
     "U_B_T_FullGhillie_tna_F",
-    "U_O_T_FullGhillie_tna_F"
+    "U_O_T_FullGhillie_tna_F",
+    "SwitchBlade_300_Tube_Desert",
+    "SwitchBlade_300_Tube_Woodland",
+    "SwitchBlade_600_Tube_Desert",
+    "SwitchBlade_600_Tube_Woodland",
+    "tfw_ilbe_whip_black",
+    "B_UavTerminal",
+    "ACE_SpottingScope"
 ];
+
 ISRC_arsenal_crew 	       = [
     "rhsusf_cvc_green_helmet",
     "rhsusf_cvc_green_alt_helmet",
     "rhsusf_cvc_green_ess",
     "rhsusf_spc_crewman"
 ] + ISRC_arsenal_squad_leader;
+
 ISRC_arsenal_medical       = [
     "ACE_bloodIV",
     "ACE_bloodIV_250",
@@ -132,7 +190,9 @@ ISRC_arsenal_medical       = [
     "kat_Carbonate",
     "dev_enzymeCapsule"
     ];
+
 ISRC_arsenal_medical_adv   = ["kat_X_AED", "dev_enzymeCapsule_refined"]; // auto-includes all medical items above
+
 ISRC_arsenal_engineer      = [
     "ToolKit",
     "ACE_VMM3",
@@ -143,6 +203,7 @@ ISRC_arsenal_engineer      = [
     "ACE_M26_Clacker", 
     "ACE_Clacker"
 ] + ISRC_arsenal_squad_leader;
+
 ISRC_arsenal_grenedier     = [    
 	"rhs_weap_m4_m203",
     "rhs_weap_m4_m203S",
@@ -171,7 +232,6 @@ ISRC_arsenal_grenedier     = [
     "rhs_weap_hk416d145_m320",
     "rhs_weap_M320"
 	];
-
 
 ISRC_arsenal_rotary_pilot  = [
     "ToolKit",
