@@ -314,7 +314,7 @@ missionNamespace setVariable ["ISRC_transport_troops", [
 
 missionNamespace setVariable ["CURRENCY_SYMBOL", "$", true];
 
-missionNamespace setVariable ["STARTING_COP_LOCATION", [-10718.1,18496,0], true]; // set to false for none, players will then have to purchase the initial FLP
+missionNamespace setVariable ["STARTING_COP_LOCATION", [0,0,0], true]; // set to false for none, players will then have to purchase the initial FLP
 missionNamespace setVariable ["COP_DEPLOY_MOVE_PRICE", 100000, true];
 
 missionNamespace setVariable ["SIDE_OP_HUMANITARIAN_ELAPSED_TIME", 1800, true];

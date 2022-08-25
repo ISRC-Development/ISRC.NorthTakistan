@@ -300,7 +300,7 @@ if (DO_RESTART) then {
 
     // COP_LOCATION
     profileNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
-    profileNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
+    missionNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
     
     saveprofilenamespace;
 };
@@ -321,7 +321,7 @@ missionNamespace setVariable ["CURRENT_FUNDING_BALANCE", call fnc_getCurrentFund
 missionNamespace setVariable ["COP_LOCATION", profileNamespace getVariable ["COP_LOCATION", false]];
 
 fnc_getCopLocation = {
-    profileNamespace getVariable ["COP_LOCATION", false]
+    profileNamespace getVariable ["COP_LOCATION", [0,0,0]]
 };
 
 fnc_setCopLocation = {

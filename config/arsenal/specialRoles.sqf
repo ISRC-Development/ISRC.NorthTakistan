@@ -97,7 +97,7 @@ ISRC_arsenal_marksman 	   = [
     "rhsusf_acc_nxs_5522x56_md",
     "rhsusf_acc_nxs_5522x56_md_sun",
     "10RND_mas_cia_408_Mag",
-    "10RND_mas_cia_408_APDS_Mag"
+    "10RND_mas_cia_408_APDS_Mag",
     "ACE_optic_LRPS_2D",
     "ACE_optic_LRPS_PIP",
     "optic_LRPS_tna_F",
@@ -136,7 +136,7 @@ ISRC_arsenal_phantom 	   = [
     "rhsusf_acc_nxs_5522x56_md",
     "rhsusf_acc_nxs_5522x56_md_sun",
     "10RND_mas_cia_408_Mag",
-    "10RND_mas_cia_408_APDS_Mag"
+    "10RND_mas_cia_408_APDS_Mag",
     "ACE_optic_LRPS_2D",
     "ACE_optic_LRPS_PIP",
     "optic_LRPS_tna_F",

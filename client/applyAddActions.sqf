@@ -8,14 +8,18 @@ fnc_applyAddactions = {
 		{
 			params ["_target", "_caller", "_actionId", "_arguments"]; // script
 			[] spawn {
-				if (["You are about to be deployed to FLP Alpha, would you like to continue?", "Confirm", true, true] call BIS_fnc_guiMessage) then {
-					if !(isNull objectParent player) then {
-						private _vehicle = vehicle player;
-						_vehicle setDir 0;
-						_vehicle setPos COP_LOCATION;
+				if !(COP_LOCATION isEqualTo [0,0,0]) then{
+					if (["You are about to be deployed to FLP Alpha, would you like to continue?", "Confirm", true, true] call BIS_fnc_guiMessage) then {
+							if !(isNull objectParent player) then {
+								private _vehicle = vehicle player;
+								_vehicle setDir 0;
+								_vehicle setPos COP_LOCATION;
+							} else {
+								player setPos COP_LOCATION;
+							};
+						};
 					} else {
-						player setPos COP_LOCATION;
-					};
+						hint "FLP needs to be purchased";
 				};
 			};
 		},
@@ -245,7 +249,7 @@ fnc_applyAddactions = {
 			false,		// showWindow
 			false,		// hideOnUse
 			"",			// shortcut
-			"( typeName COP_LOCATION != 'BOOL' && (player distance2D RESPAWN_LOCATION) < 100 || (player distance2D COP_LOCATION) < 100 || (player distance2D FOB_BRAVO_LOCATION) < 100)", 	// condition
+			"(player distance2D RESPAWN_LOCATION < 100 || player distance2D COP_LOCATION < 100 || player distance2D FOB_BRAVO_LOCATION < 100)", 	// condition
 			50,			// radius
 			false,		// unconscious
 			"",			// selection

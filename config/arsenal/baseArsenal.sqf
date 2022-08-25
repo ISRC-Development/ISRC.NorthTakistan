@@ -29,7 +29,7 @@ ISRC_base_arsenal=[
 	"Tier1_SIG_MCX_115_Virtus_300BLK_FDE",
 	"Tier1_SIG_MCX_115_Virtus_300BLK_Black",
 	"Tier1_M110k5",
-	"Tier1_M110k5_65mm",,
+	"Tier1_M110k5_65mm",
 	"rhs_weap_m72a7",
 	"arifle_mas_cia_AK12_F",
 	"rhs_weap_ak104_zenitco01",
