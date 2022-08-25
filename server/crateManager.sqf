@@ -191,6 +191,5 @@ fnc_pullCrateServer = {
     [_crateOrWeapon, true, [0, 2, 0], 0] remoteExec ["ace_dragging_fnc_setCarryable"]; // correct usage of remoteExec ???
 	[_player, _crateOrWeapon] remoteExec ["ace_dragging_fnc_startCarry", _player];
 
-
 };
 

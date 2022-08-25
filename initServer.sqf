@@ -1140,18 +1140,39 @@ fnc_getMarineLocation = {
     } forEach in _location;
 };
 
+// `call fnc_getEnemySector` Returns enemy sector or false if none found.
+// `[true] call fnc_getEnemySector` Returns captured sector or false if none found.
 fnc_getEnemySector = {
-    private _spawnLocation;
-    private _safeCheck = 0;
-    private _possibleLocations = call fnc_getAllLocations;
-    private _marineLocations = call fnc_getMarineLocations;
-    _possibleLocations = _possibleLocations - (profileNameSpace getVariable "CAPTURED_SECTORS");
-    _possibleLocations = _possibleLocations - _marineLocations
-    _spawnLocation = selectRandom _possibleLocations;
-
-    _spawnLocation
+    params [["_getcapturedsector", false]];
+    private _deployment = false;
+    private _safeCheck  = 0;
+    if !(_getcapturedsector) then {
+        while {typeName _deployment == "BOOL"} do {
+            private _location = selectRandom (call fnc_getAllLocations);
+            private _name     = _location select 0;
+            if (!(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && (_location select 2) != "NameMarine") then {
+                _deployment = _location;
+            };
+            _safeCheck = _safeCheck + 1;
+            if (_safeCheck > 1024) then {
+                _deployment = false;
+            };
+        };        
+    } else {
+        while {typeName _deployment == "BOOL"} do {
+            private _location = selectRandom (call fnc_getAllLocations);
+            private _name     = _location select 0;
+            if (_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
+                _deployment = _location;
+            };
+            _safeCheck = _safeCheck + 1;
+            if (_safeCheck > 1024) then {
+                _deployment = false;
+            };
+        };       
+    };
+    _deployment
 };
-
 
 [] spawn {
 
@@ -1299,19 +1320,15 @@ publicVariable "HUMANITARIAN_RUNNING";
 forceWeatherChange; 
 
 // Create SAM sites
-[] spawn {
-	//while {true} do {
+[] spawn 
+{
+	while {true} do 
+    {
         
         sleep 1500;
 
-        private _deployment = false;
-        while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom ((call fnc_getAllLocations) - ;
-            private _name     = _location select 0;
-            if !((_location select 2) != "NameMarine") then {
-                _deployment = _location;
-            };
-        };
+        private _deployment = call fnc_getEnemySector;
+        if !(_deployment) exitWith {};
 
         private _sstype = selectRandom ISRC_SAM_SITE;
 
@@ -1352,7 +1369,7 @@ forceWeatherChange;
         ["IntelRed", ["LANDSAT: New long-range threats discovered!"]] remoteExec ["BIS_fnc_showNotification"];
 
 		//sleep 4000;
-	//};
+	};
 };
 
 fnc_toggleHCL = {
@@ -1403,7 +1420,7 @@ fnc_toggleHCL = {
 	while {true} do {
 		0 setfog 0; // Fuck Fog, all my homies hate fog!!!
 		forceWeatherChange; 
-		sleep 150; //  2.5 minute loop
+		sleep 300; //  5 minute loop
 	};
 };
 
