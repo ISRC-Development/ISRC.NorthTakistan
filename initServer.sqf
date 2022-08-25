@@ -300,7 +300,7 @@ if (DO_RESTART) then {
 
     // COP_LOCATION
     profileNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
-    profileNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
+    missionNamespace setVariable ["COP_LOCATION", STARTING_COP_LOCATION];
     
     saveprofilenamespace;
 };
@@ -321,7 +321,7 @@ missionNamespace setVariable ["CURRENT_FUNDING_BALANCE", call fnc_getCurrentFund
 missionNamespace setVariable ["COP_LOCATION", profileNamespace getVariable ["COP_LOCATION", false]];
 
 fnc_getCopLocation = {
-    profileNamespace getVariable ["COP_LOCATION", false]
+    profileNamespace getVariable ["COP_LOCATION", [0,0,0]]
 };
 
 fnc_setCopLocation = {
@@ -1130,28 +1130,37 @@ fnc_processPurchasedVehicle = {
     _vehicle setVariable ["is_purchased_asset", true, true];
 };
 
-fnc_getMarineLocation = {
-    private _marineSector = [];
-    private _location = call fnc_GetAllLocations;
-    {
-        if ((_x select 2) = "NameMarine") then{
-            _marineSector = pushback _x
-        };
-    } forEach in _location;
-};
-
 fnc_getEnemySector = {
-    private _spawnLocation;
-    private _safeCheck = 0;
-    private _possibleLocations = call fnc_getAllLocations;
-    private _marineLocations = call fnc_getMarineLocations;
-    _possibleLocations = _possibleLocations - (profileNameSpace getVariable "CAPTURED_SECTORS");
-    _possibleLocations = _possibleLocations - _marineLocations
-    _spawnLocation = selectRandom _possibleLocations;
-
-    _spawnLocation
+    params [["_getcapturedsector", false]];
+    private _deployment = false;
+    private _safeCheck  = 0;
+    if !(_getcapturedsector) then {
+        while {typeName _deployment == "BOOL"} do {
+            private _location = selectRandom (call fnc_getAllLocations);
+            private _name     = _location select 0;
+            if (!(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && (_location select 2) != "NameMarine") then {
+                _deployment = _location;
+            };
+            _safeCheck = _safeCheck + 1;
+            if (_safeCheck > 1024) then {
+                _deployment = false;
+            };
+        };        
+    } else {
+        while {typeName _deployment == "BOOL"} do {
+            private _location = selectRandom (call fnc_getAllLocations);
+            private _name     = _location select 0;
+            if (_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
+                _deployment = _location;
+            };
+            _safeCheck = _safeCheck + 1;
+            if (_safeCheck > 1024) then {
+                _deployment = false;
+            };
+        };       
+    };
+    _deployment
 };
-
 
 [] spawn {
 
@@ -1306,9 +1315,9 @@ forceWeatherChange;
 
         private _deployment = false;
         while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom ((call fnc_getAllLocations) - ;
+            private _location = selectRandom (call fnc_getAllLocations);;
             private _name     = _location select 0;
-            if !((_location select 2) != "NameMarine") then {
+            if !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
                 _deployment = _location;
             };
         };
@@ -1385,7 +1394,7 @@ fnc_toggleHCL = {
                     20,
                     0
                 ] call BIS_fnc_findSafePos, 
-                [true] call fnc_getEnemySector select 1, 
+                [true] call fnc_getEnemySector select 1,
                 selectRandom[300, 500, 800, 1200]
             ];
             if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
@@ -1394,7 +1403,7 @@ fnc_toggleHCL = {
                 _args execVM "functions\fnc_spawn_patrol.sqf";
             };
         };
-        
+
         sleep selectRandom[200, 300, 400]; // 15, 16, 17 minutes
     };
 };
