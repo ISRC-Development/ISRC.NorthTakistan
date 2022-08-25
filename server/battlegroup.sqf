@@ -12,18 +12,8 @@ private _target_name   = _target_sector select 0;
 private _target_pos    = _target_sector select 1;
 private _target_type   = _target_sector select 2;
 
-private _deployment = false;
-while {typeName _deployment == "BOOL"} do {
-	private _location = selectRandom (call fnc_getAllLocations);
-	private _name     = _location select 0;
-	if !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
-		_deployment = _location;
-	};
-};
-
-if (isNil "_deployment") exitWith {
-	systemChat "[SERVER] No deployment location found.";
-};
+private _deployment = call fnc_getEnemySector;
+if !(_deployment) exitWith {};
 
 private _deployment_name   = _deployment select 0;
 private _deployment_pos    = _deployment select 1;
