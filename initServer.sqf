@@ -8,19 +8,13 @@ call compileFinal preprocessFileLineNumbers "inits\global.sqf"; // Global inits 
 call compileFinal preprocessFileLineNumbers "client\logistics.sqf"; // needed to get all crates
 call compileFinal preprocessFileLineNumbers "headless_client\index.sqf";
 call compileFinal preprocessFileLineNumbers "config\blufor_purchase_objects.sqf";
+call compileFinal preprocessFileLineNumbers "functions\global\utility_functions.sqf";
 
 // Experiments // 
 call compileFinal preprocessFileLineNumbers "client\experiments\electronic_warfare\server.sqf";
 // End Experiments //
 
 missionNamespace setVariable ["MANAGED_PURCHASED_VEHICLES", []];
-
-// clean up the vehicle yard
-{
-    if ( !("EmptyDetector" in typeOf _x) && !("trigger" in typeOf _x) ) then {
-        hideObjectGlobal _x;
-    };
-} forEach nearestTerrainObjects [VEHICLE_YARD_CENTER, [], VEHICLE_YARD_RADIUS];
 
 fnc_HcOnline = {
     private _online = false;
@@ -67,14 +61,15 @@ fnc_marker = {
     };
 };
 
-fnc_sum = {
-    params["_array"];
-    private _sum = 0;
-    {_sum = _sum + _x} forEach _array;
-    _sum
-};
-
 fnc_getPlayersMeanPos = {
+
+    private _fnc_sum = {
+        params["_array"];
+        private _sum = 0;
+        {_sum = _sum + _x} forEach _array;
+        _sum
+    };
+
     private _pos     = false;
 	private _players = [];
 	private _ppx     = [];
@@ -90,8 +85,8 @@ fnc_getPlayersMeanPos = {
             _ppy pushBack ((getPos _x) select 1);
 	    }
     } forEach allPlayers;
-	_ppx_am =  ([_ppx] call fnc_sum) / count _ppx;
-	_ppy_am = ([_ppy] call fnc_sum) / count _ppy;
+	_ppx_am =  ([_ppx] call _fnc_sum) / count _ppx;
+	_ppy_am = ([_ppy] call _fnc_sum) / count _ppy;
 
 	if (count _players > 0) then {
         _pos = [_ppx_am, _ppy_am, 0];
@@ -376,24 +371,6 @@ fnc_updateVehicleMarkers = {
     } forEach allMissionObjects "";
 };
 
-fnc_getPlayersMeanPos = {
-    private _px = []; private _py = []; private _pz = [];
-    {
-        private _pos = getPos _x;
-        _px pushBack (_pos select 0);
-        _py pushBack (_pos select 1);
-    } forEach allPlayers;
-    private _out = [
-        _px call BIS_fnc_arithmeticMean,
-        _py call BIS_fnc_arithmeticMean,
-        0
-    ]; 
-    if (count allPlayers == 0) then {
-        _out = [];
-    };
-    _out
-};
-
 fnc_globalChat = {
 	params["_message"];
 	_message remoteExec ["systemChat"];		
@@ -545,40 +522,6 @@ _server_fps_marker setMarkerType "loc_Box";
 _server_units_marker = createMarker ["server_units_marker", [0, 1200, 0]];
 _server_units_marker setMarkerColor "ColorGreen";
 _server_units_marker setMarkerType "loc_download";
-
-// This is a band-aid fix for a bug: randomly getting kicked from zeus.
-// Also refuels civi/opfor vehicles.
-// Also sets non-blufor conciousness to false
-// Also manages asset markers
-// Also tracks player count
-[_server_fps_marker, _server_units_marker] spawn {
-    params["_server_units_marker", "_server_fps_marker"];
-    while {true} do{
-
-        // Asset Markers
-        [] call fnc_updateVehicleMarkers;   
-
-        // FPS Marker Update
-        private _fps = diag_fps;
-        if (_fps >= 20) then {
-            _server_fps_marker setMarkerColor "ColorGreen";
-        } else {
-            if (_fps >= 10) then {
-                _server_fps_marker setMarkerColor "ColorYellow";
-            } else {
-                _server_fps_marker setMarkerColor "ColorRed";
-            }
-        };
-        _server_fps_marker setMarkerText format["Server FPS: %1", floor(_fps / 1)];    
-
-        // Server Units Marker Update
-        private _units = 0;
-        {if (local _x) then {_units = _units + 1}} forEach allUnits;
-        _server_units_marker setMarkerText format["Server Units: %1", _units];
-
-        sleep ISRC_MARKER_UPDATE_INTERVAL;
-    };
-};
 
 //////////////////// Dynamic Sectors
 
@@ -785,13 +728,11 @@ if (typeName (profileNamespace getVariable ["CAPTURED_SECTORS", false]) != "ARRA
     _location setVariable ["IS_PROP", true];
 } forEach USER_DEFINED_SECTORS;
 
-LOCATIONS_BLACKLIST = [
-    "Skalisty Island",
-    "Skalisty Proliv"
-];
-
 fnc_getAllLocations = {
     // Returns -> [["Name", [x, y, z], "type"], ...]   
+    /*
+        [ ["Kushkak", [9086.47,9917.7], "NameCityCapital", "VEOe0EkE/bM", false, []], ... ]
+    */
     private _placesCfg = configFile >> "CfgWorlds" >> worldName >> "Names";
     private _places = [];
     for "_i" from 0 to (count _placesCfg)-1 do
@@ -843,8 +784,6 @@ fnc_getLocationByName = {
     } forEach (call fnc_getAllLocations);
     _location
 };
-
-LOG_TEST = "";
 
 fnc_establishSector = {
     params["_v"];
@@ -1029,8 +968,7 @@ fnc_establishSector = {
             _airCountRange,
             _armorCountRange
         ]]] remoteExec ["setVariable", -2, _trigger]; // rexec and JIP the variable to the trigger
-*/
-        
+*/ 
     } else {
         // Captured Sector - occupational forces: IEDS
         if (_type in ["NameVillage", "NameCity", "NameCityCapital"]) then {
@@ -1076,68 +1014,14 @@ fnc_establishSector = {
     _marker setMarkerAlpha 1;
 };
 
-// Establish Map-Defined Sectors
-{
-    if !(isNil "_x") then {
-        [_x] call fnc_establishSector;
-    };
-} forEach ([] call fnc_getAllLocations); 
-
-if ( typeName (call fnc_getCopLocation) != "BOOL") then {
-    [call fnc_getCopLocation, true] execVM "functions\server\fnc_spawnCOP.sqf";
-};
-
-private _marker = createMarker ["fob_marker", RESPAWN_LOCATION]; // Not visible yet.
-_marker setMarkerType "hd_flag"; // Visible.
-_marker setMarkerColor "ColorYellow"; // Blue.
-_marker setMarkerText "FOB Alpha"; // Text.
-
-if !(FOB_BRAVO_LOCATION isEqualTo [0, 0, 0]) then {
-    private _bravo_marker = createMarker ["fob_bravo_marker", FOB_BRAVO_LOCATION]; // Not visible yet.
-    _bravo_marker setMarkerType "hd_flag"; // Visible.
-    _bravo_marker setMarkerColor "ColorYellow"; // Blue.
-    _bravo_marker setMarkerText "FOB Bravo"; // Text.    
-};
-
-if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
-    private _bravo_marker = createMarker ["fob_charlie_marker", FOB_CHARLIE_LOCATION]; // Not visible yet.
-    _bravo_marker setMarkerType "hd_flag"; // Visible.
-    _bravo_marker setMarkerColor "ColorYellow"; // Blue.
-    _bravo_marker setMarkerText "FOB Charlie"; // Text.    
-};
-
-/*
-addMissionEventHandler ["BuildingChanged", {
-	params ["_from", "_to", "_isRuin"];
-    if (_isRuin) then {
-        call fnc_civRateSubtract;
-    }; // todo: allow players to rebuild houses
-}];
-*/
-
-/*
-addMissionEventHandler ["HandleDisconnect", {
-	params ["_unit", "_id", "_uid", "_name"];
-    deleteVehicle _unit;
-	true;
-}]; 
-systemChat format["[SERVER] Handling disconnects"];
-*/
-
 fnc_processPurchasedVehicle = {
     params["_vehicle"];
     _vehicle setVariable ["IS_PROP", true, true];
     _vehicle setVariable ["is_purchased_asset", true, true];
 };
 
-fnc_getMarineLocation = {
-    private _marineSector = [];
-    private _location = call fnc_GetAllLocations;
-    {
-        if ((_x select 2) = "NameMarine") then{
-            _marineSector = pushback _x
-        };
-    } forEach in _location;
+fnc_getMarineLocations = {
+    call fnc_GetAllLocations select {_x select 2 == "NameMarine"}
 };
 
 // `call fnc_getEnemySector` Returns enemy sector or false if none found.
@@ -1174,32 +1058,209 @@ fnc_getEnemySector = {
     _deployment
 };
 
-[] spawn {
-
-    // sleep 1 hour
-    sleep 350;
-
-    // Give +1 civrep
-    call fnc_civRateAdd;
-
-    ["IntelGreen", ["+1 Reputation:<br/>Time Spent"]] remoteExec ["BIS_fnc_showNotification"];
-
-    sleep (selectRandom [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
-
-    // Give some funding based on civrep
-    private _fundingCivRepCooefficient = (CIV_RATING * 0.10) * 100000;
-    
-    [_fundingCivRepCooefficient] call fnc_addToFunding;
-    ["IntelGreen", [
-        format["Daily Funding: <br/>$%1", [_fundingCivRepCooefficient] call fnc_standardNotation]
-    ]] remoteExec ["BIS_fnc_showNotification"];
-
-    sleep (selectRandom [3600, 3600, 3000, 3000, 2500, 2800]);
-    //["create_battlegroup", []] call fnc_new_HC_job;
-
+fnc_removeOne = {
+    params ["_array", "_remove"];
+    private _found = false;
+    private _new_array = [];
+    {
+        if !(_x isEqualTo _remove) then {
+            _new_array pushBack _x;
+        } else {
+            if (!_found) then {
+                _found = true;
+            } else {
+                _new_array pushBack _x;
+            };
+        };
+    } forEach _array;
 };
-systemChat "[SERVER] Started bonus rewards loop";
 
+fnc_purchaseVehicle = {
+    params["_vehicle"];
+    private _currentPurchased = profileNamespace getVariable ["PURCHASED_VEHICLES", []];
+    private _new = _currentPurchased + [typeOf _vehicle];
+    profileNamespace setVariable ["PURCHASED_VEHICLES", _new];
+    MANAGED_PURCHASED_VEHICLES pushBack _vehicle;
+    [_vehicle] call fnc_processPurchasedVehicle;
+    saveProfileNamespace;
+};
+
+fnc_toggleHCL = {
+    HCL_ENABLED = !HCL_ENABLED;
+    publicVariable "HCL_ENABLED";
+    if (HCL_ENABLED) then {
+        ["IntelGreen", ["Headless Client Enabled"]] remoteExec ["BIS_fnc_showNotification"];
+    } else {
+        systemChat "[SERVER] HCL Disabled";
+        ["IntelGreen", ["Headless Client Disabled"]] remoteExec ["BIS_fnc_showNotification"];
+    };
+};
+
+// Deprecated - from humanitarian side-mission
+HUMANITARIAN_RUNNING = false;
+publicVariable "HUMANITARIAN_RUNNING";
+
+0 setFog 0;
+forceWeatherChange; 
+
+// Establish Map-Defined Sectors
+{
+    if !(isNil "_x") then {
+        [_x] call fnc_establishSector;
+    };
+} forEach ([] call fnc_getAllLocations); 
+
+if ( typeName (call fnc_getCopLocation) != "BOOL") then {
+    [call fnc_getCopLocation, true] execVM "functions\server\fnc_spawnCOP.sqf";
+};
+
+private _marker = createMarker ["fob_marker", RESPAWN_LOCATION]; // Not visible yet.
+_marker setMarkerType "hd_flag"; // Visible.
+_marker setMarkerColor "ColorYellow"; // Blue.
+_marker setMarkerText "FOB Alpha"; // Text.
+
+if !(FOB_BRAVO_LOCATION isEqualTo [0, 0, 0]) then {
+    private _bravo_marker = createMarker ["fob_bravo_marker", FOB_BRAVO_LOCATION]; // Not visible yet.
+    _bravo_marker setMarkerType "hd_flag"; // Visible.
+    _bravo_marker setMarkerColor "ColorYellow"; // Blue.
+    _bravo_marker setMarkerText "FOB Bravo"; // Text.    
+};
+
+if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
+    private _bravo_marker = createMarker ["fob_charlie_marker", FOB_CHARLIE_LOCATION]; // Not visible yet.
+    _bravo_marker setMarkerType "hd_flag"; // Visible.
+    _bravo_marker setMarkerColor "ColorYellow"; // Blue.
+    _bravo_marker setMarkerText "FOB Charlie"; // Text.    
+};
+
+// clean up the vehicle yard
+{
+    if ( !("EmptyDetector" in typeOf _x) && !("trigger" in typeOf _x) ) then {
+        hideObjectGlobal _x;
+    };
+} forEach nearestTerrainObjects [VEHICLE_YARD_CENTER, [], VEHICLE_YARD_RADIUS];
+
+// Create SAM sites
+[] spawn 
+{
+	while {true} do 
+    {
+        
+        sleep 10; // delay for local 3den testing
+
+        private _deployment = call fnc_getEnemySector;
+
+        if (typeName _deployment == "BOOL") then { continue };
+
+        private _sstype = selectRandom ISRC_SAM_SITE;
+
+        // Pancir 
+        if ("min_rf_sa_22" in _sstype) then {
+            private _ppos = [_deployment select 1, 1, selectRandom[250, 300, 500], 5, 0, 25, 0, [], []] call BIS_fnc_findSafePos;
+            ["spawn_crewed_vehicle", [
+                "min_rf_sa_22",
+                _ppos,
+                true,
+                []
+            ]] call fnc_new_HC_job;	
+            [_ppos, "Unknown AA", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
+        };
+
+        // S-750 Rhea SAM/Radar/Net
+        if ("sam_site" in _sstype) then {
+            [_deployment select 1] execVM "functions\server\fnc_build_sam_site.sqf";       
+            [_deployment select 1, "SAM Site", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;     
+        };
+
+        // BM-21 Arty
+        if (_sstype == "RHS_BM21_VDV_01") then {
+            [_deployment select 1] execVM "functions\server\fnc_buildBatterySite.sqf";
+            [_deployment select 1, "Battery", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
+        };
+
+        // rhs_2s3_tv Arty
+        if (_sstype == "rhs_2s3_tv") then {
+            [_deployment select 1, "rhs_2s3_tv"] execVM "functions\server\fnc_buildBatterySite.sqf";
+            [_deployment select 1, "Artillery", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
+        };
+
+        if (DEBUG) then {
+            systemChat format["Created long-range threat: %1 @ %2", _sstype, _deployment select 0];
+        };
+
+        ["IntelRed", ["LANDSAT: New long-range threats discovered!"]] remoteExec ["BIS_fnc_showNotification"];
+
+		sleep 4000;
+	};
+};
+
+// HVTs & Patrols
+[] spawn {
+    while {true} do {
+
+        sleep 10; // delay for local 3den testing
+        
+        execVM "functions\server\fnc_spawn_high_value_target.sqf"; // HVT
+
+        if (count (profileNamespace getVariable ["CAPTURED_SECTORS", []]) > 0) then {
+            private _args = [
+                [
+                    call fnc_getEnemySector select 1,
+                    3,
+                    500,
+                    3,
+                    0,
+                    20,
+                    0
+                ] call BIS_fnc_findSafePos, 
+                [true] call fnc_getEnemySector select 1, 
+                selectRandom[1200, 1500, 2000]
+            ];
+            if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
+                [_args, "functions\fnc_spawn_patrol.sqf"] remoteExec ["execVM", hc1];
+            } else {
+                _args execVM "functions\fnc_spawn_patrol.sqf";
+            };
+        };
+        
+        sleep selectRandom[900, 960, 800];
+    };
+};
+
+// No FOG!
+[] spawn {
+	while {true} do {
+		0 setfog 0; // Fuck Fog, all my homies hate fog!!!
+		forceWeatherChange; 
+		sleep 300; //  5 minute loop
+	};
+};
+
+// Initialize persistent objects 
+[] spawn {
+    systemChat "Initializing Persistant Objects...";
+    call fnc_initializeAllPersistentObjects;
+    systemChat "Persistent objects initialized";
+};
+
+// Watch vehicles
+[] spawn {
+    while {true} do {
+        {
+            if !(alive _x) then {
+                private _vehicle = _x;
+                private _pvs = profileNamespace getVariable ["PURCHASED_VEHICLES", []];
+                _pvs deleteAt (_pvs findIf {_x == typeOf _vehicle});
+                profileNamespace setVariable ["PURCHASED_VEHICLES", _pvs];
+                saveProfileNamespace;
+                MANAGED_PURCHASED_VEHICLES = MANAGED_PURCHASED_VEHICLES - [_x];             
+            };
+        } forEach MANAGED_PURCHASED_VEHICLES; 
+        sleep 25;
+    };
+};
+
+// Arty Controller
 [] spawn {
     while {true} do {
 
@@ -1259,23 +1320,34 @@ systemChat "[SERVER] Started bonus rewards loop";
     };
 };
 
-fnc_removeOne = {
-    params ["_array", "_remove"];
-    private _found = false;
-    private _new_array = [];
-    {
-        if !(_x isEqualTo _remove) then {
-            _new_array pushBack _x;
-        } else {
-            if (!_found) then {
-                _found = true;
-            } else {
-                _new_array pushBack _x;
-            };
-        };
-    } forEach _array;
+// Add daily funding/rep
+// Also spawns BG's 
+[] spawn {
+
+    // sleep 1 hour
+    sleep 350;
+
+    // Give +1 civrep
+    call fnc_civRateAdd;
+
+    ["IntelGreen", ["+1 Reputation:<br/>Time Spent"]] remoteExec ["BIS_fnc_showNotification"];
+
+    sleep (selectRandom [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+
+    // Give some funding based on civrep
+    private _fundingCivRepCooefficient = (CIV_RATING * 0.10) * 100000;
+    
+    [_fundingCivRepCooefficient] call fnc_addToFunding;
+    ["IntelGreen", [
+        format["Daily Funding: <br/>$%1", [_fundingCivRepCooefficient] call fnc_standardNotation]
+    ]] remoteExec ["BIS_fnc_showNotification"];
+
+    sleep (selectRandom [3600, 3600, 3000, 3000, 2500, 2800]);
+    //["create_battlegroup", []] call fnc_new_HC_job;
+
 };
 
+// Spawn purchased vehicles
 {
     if (typeName _x == "STRING") then {
         private _vehicle = _x createVehicle ([VEHICLE_YARD_CENTER, 1, VEHICLE_YARD_RADIUS, 2, 0, 30, 0] call BIS_fnc_findSafePos);
@@ -1286,148 +1358,35 @@ fnc_removeOne = {
     };
 } forEach (profileNamespace getVariable ["PURCHASED_VEHICLES", []]);
 
-// Watch vehicles
-[] spawn {
-    while {true} do {
-        {
-            if !(alive _x) then {
-                private _vehicle = _x;
-                private _pvs = profileNamespace getVariable ["PURCHASED_VEHICLES", []];
-                _pvs deleteAt (_pvs findIf {_x == typeOf _vehicle});
-                profileNamespace setVariable ["PURCHASED_VEHICLES", _pvs];
-                saveProfileNamespace;
-                MANAGED_PURCHASED_VEHICLES = MANAGED_PURCHASED_VEHICLES - [_x];             
-            };
-        } forEach MANAGED_PURCHASED_VEHICLES; 
-        sleep 25;
-    };
-};
+// Manages asset markers
+// Also tracks player count
+[_server_fps_marker, _server_units_marker] spawn {
+    params["_server_units_marker", "_server_fps_marker"];
+    while {true} do{
 
-fnc_purchaseVehicle = {
-    params["_vehicle"];
-    private _currentPurchased = profileNamespace getVariable ["PURCHASED_VEHICLES", []];
-    private _new = _currentPurchased + [typeOf _vehicle];
-    profileNamespace setVariable ["PURCHASED_VEHICLES", _new];
-    MANAGED_PURCHASED_VEHICLES pushBack _vehicle;
-    [_vehicle] call fnc_processPurchasedVehicle;
-    saveProfileNamespace;
-};
+        // Asset Markers
+        [] call fnc_updateVehicleMarkers;   
 
-HUMANITARIAN_RUNNING = false;
-publicVariable "HUMANITARIAN_RUNNING";
-
-0 setFog 0;
-forceWeatherChange; 
-
-// Create SAM sites
-[] spawn 
-{
-	while {true} do 
-    {
-        
-        sleep 1500;
-
-        private _deployment = call fnc_getEnemySector;
-        if !(_deployment) exitWith {};
-
-        private _sstype = selectRandom ISRC_SAM_SITE;
-
-        // Pancir 
-        if ("min_rf_sa_22" in _sstype) then {
-            private _ppos = [_deployment select 1, 1, selectRandom[250, 300, 500], 5, 0, 25, 0, [], []] call BIS_fnc_findSafePos;
-            ["spawn_crewed_vehicle", [
-                "min_rf_sa_22",
-                _ppos,
-                true,
-                []
-            ]] call fnc_new_HC_job;	
-            [_ppos, "Unknown AA", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
-        };
-
-        // S-750 Rhea SAM/Radar/Net
-        if ("sam_site" in _sstype) then {
-            [_deployment select 1] execVM "functions\server\fnc_build_sam_site.sqf";       
-            [_deployment select 1, "SAM Site", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;     
-        };
-
-        // BM-21 Arty
-        if (_sstype == "RHS_BM21_VDV_01") then {
-            [_deployment select 1] execVM "functions\server\fnc_buildBatterySite.sqf";
-            [_deployment select 1, "Battery", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
-        };
-
-        // rhs_2s3_tv - arty
-        if (_sstype == "rhs_2s3_tv") then {
-            [_deployment select 1, "rhs_2s3_tv"] execVM "functions\server\fnc_buildBatterySite.sqf";
-            [_deployment select 1, "Artillery", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
-        };
-
-        if (DEBUG) then {
-            systemChat format["Created SAM site: %1 @ %2", _sstype, _deployment select 0];
-        };
-
-        ["IntelRed", ["LANDSAT: New long-range threats discovered!"]] remoteExec ["BIS_fnc_showNotification"];
-
-		//sleep 4000;
-	};
-};
-
-fnc_toggleHCL = {
-    HCL_ENABLED = !HCL_ENABLED;
-    publicVariable "HCL_ENABLED";
-    if (HCL_ENABLED) then {
-        ["IntelGreen", ["Headless Client Enabled"]] remoteExec ["BIS_fnc_showNotification"];
-    } else {
-        systemChat "[SERVER] HCL Disabled";
-        ["IntelGreen", ["Headless Client Disabled"]] remoteExec ["BIS_fnc_showNotification"];
-    };
-};
-
-// HVTs
-[] spawn {
-    while {true} do {
-        
-        execVM "functions\server\fnc_spawn_high_value_target.sqf"; // HVT
-
-        sleep selectRandom[900, 960, 130];
-
-        if (count (profileNamespace getVariable ["CAPTURED_SECTORS", []]) > 0) then {
-            private _args = [
-                [
-                    call fnc_getEnemySector select 1,
-                    3,
-                    500,
-                    3,
-                    0,
-                    20,
-                    0
-                ] call BIS_fnc_findSafePos, 
-                [true] call fnc_getEnemySector select 1, 
-                selectRandom[300, 500, 800, 1200]
-            ];
-            if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
-                [_args, "functions\fnc_spawn_patrol.sqf"] remoteExec ["execVM", hc1];
+        // FPS Marker Update
+        private _fps = diag_fps;
+        if (_fps >= 20) then {
+            _server_fps_marker setMarkerColor "ColorGreen";
+        } else {
+            if (_fps >= 10) then {
+                _server_fps_marker setMarkerColor "ColorYellow";
             } else {
-                _args execVM "functions\fnc_spawn_patrol.sqf";
-            };
+                _server_fps_marker setMarkerColor "ColorRed";
+            }
         };
-        
-        sleep selectRandom[200, 300, 400]; // 15, 16, 17 minutes
+        _server_fps_marker setMarkerText format["Server FPS: %1", floor(_fps / 1)];    
+
+        // Server Units Marker Update
+        private _units = 0;
+        {if (local _x) then {_units = _units + 1}} forEach allUnits;
+        _server_units_marker setMarkerText format["Server Units: %1", _units];
+
+        sleep ISRC_MARKER_UPDATE_INTERVAL;
     };
-};
-
-[] spawn {
-	while {true} do {
-		0 setfog 0; // Fuck Fog, all my homies hate fog!!!
-		forceWeatherChange; 
-		sleep 300; //  5 minute loop
-	};
-};
-
-[] spawn {
-    systemChat "Initializing Persistant Objects...";
-    call fnc_initializeAllPersistentObjects;
-    systemChat "Persistent objects initialized";
 };
 
 setTimeMultiplier TIME_MULTIPLIER;

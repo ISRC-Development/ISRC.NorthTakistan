@@ -63,7 +63,8 @@ fnc_sayGlobal = {
 
 // HEADLESS CLIENT
 if (!hasInterface && !isServer) exitWith {
-	[] call compileFinal preprocessFileLineNumbers "headless_client\index.sqf";
+	call compileFinal preprocessFileLineNumbers "headless_client\index.sqf";
+	call compileFinal preprocessFileLineNumbers "functions\global\utility_functions.sqf";
 	["A new headless client has been established!"] call fnc_globalChat;
 };
 

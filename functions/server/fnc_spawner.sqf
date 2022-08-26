@@ -65,7 +65,14 @@ if (_locationType != "NameMarine") then {
 			_FD_group_units,
 			_generalpos,
 			true,
-			[_generalpos, _infantryRadius]
+			[_generalpos, _infantryRadius],
+			["spawneropts", [
+				_triggerpos,
+				_poiName,
+				_locationType,
+				_infantryRadius,
+				_locationUID
+			]]
 		]] call fnc_new_HC_job;
 	};
 

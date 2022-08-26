@@ -135,10 +135,45 @@ fnc_new_HC_job = {
 			private _pos       = _args select 2; // spawn pos
 			private _isenemy   = _args select 3; // is enemy
 			private _patrol    = _args select 4; // array: [_pos, _radius]; do patrol around _pos
+			
 			private _group     = createGroup _side;
 			{
 				private _unit = _group createUnit [_x, [_pos, 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos, [], 0, "NONE"];
 			} forEach _groupArray;
+
+			if (count _args > 5) then {
+				/*
+				Spawneropts: 
+					This connects groups spawned by the HC/Server "Jobs" system to the spawner system.
+				*/
+				// Check for spawneropts array
+				// [spawneropts, [_sector_pos, _sector_name, _sector_type, _sector_infantry_radius, _sector_id]];
+				private _spawneropts      = _args select 5;
+				private _spawneropts_args = _spawneropts select 1;	
+				private _opts_pos    	  = _spawneropts_args select 0;
+				private _opts_name   	  = _spawneropts_args select 1;
+				private _opts_type   	  = _spawneropts_args select 2;
+				private _opts_radius 	  = _spawneropts_args select 3;
+				private _opts_id     	  = _spawneropts_args select 4;
+
+				// Post-spawn infantry group processing below ///////////////////////////
+
+				// Check if garrisonable
+				private _nearestBuilding = [leader _group] call isrc_ufnc_getNearestBuildingPos;
+				if !(isNil "_nearestBuilding") then { 
+					if (((leader _group) distance2d _nearestBuilding) <= floor (_opts_radius * SPAWNOPTS_INFANTRY_GARRISON_COEF)) then {
+						//_group addWaypoint [_nearestBuilding, -1] setWaypointScript "\x\cba\addons\ai\fnc_waypointGarrison.sqf []"; // alternate syntax/method?
+						[_group, _nearestBuilding] execVM "\x\cba\addons\ai\fnc_waypointGarrison.sqf"; // https://cbateam.github.io/CBA_A3/docs/files/ai/fnc_waypointGarrison-sqf.html
+						systemChat format ["Garrisoning %1 at %2", _group, _nearestBuilding];
+						_patrol = []; // make $patrol default so they arent tasked to multiple waypoints.
+					};
+				};
+
+				// END Post-spawn infantry group processing /////////////////////////////
+
+			};
+			
+
 			[_group, _isenemy, _patrol, false] call fnc_processAIGroup;
 		};
 

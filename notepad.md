@@ -133,13 +133,28 @@ airdrops in the field
 
 turn down armor
 
-too easy!
-
 try not doing uncon fix on new server
 
 big spawns baby!
 
-
 check if buldings near group, garrison if so
+
+ADD SHELTER TENTS TO THE BUILD LIST (FOR RAIN)
+
+DONT DELETE PATROLS (OR WAIT LONGER)!!!
+
+GARRISON INFANTRY IF BUILDING NEARBY ON SPAWN -> https://securitronlinux.com/it/how-to-get-rhs-units-to-garrison-buildings-in-arma-3/
+
+ROADBLOCKS
+
+check bypass cleanup script
+
+add paradrops to air spawn
+
+scripted mortars not working????
+
+digging w/ earth displacement
+
+getEnemySector is returning random sectors
 
 

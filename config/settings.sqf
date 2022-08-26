@@ -36,30 +36,27 @@ missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	3, true]; //  Max numbe
 missionNamespace setVariable ['MAX_CIV_POP_TRAFFIC',    	3, true]; //  Max number of motorists that can be spawned in a sector
 missionNamespace setVariable ['BLUFOR_ACTIVATION_COUNT',    4]; // Number of Blufor players units needed in any sector to activate it
 missionNamespace setVariable ['ISRC_MARKER_UPDATE_INTERVAL',30];  // Interval in seconds to update the asset markers and server FPS counter 
-// See functions/server/{fnc_spawner}!
 missionNamespace setVariable ["LOCATION_TYPES", 			["NameLocal", "NameVillage", "NameCity", "NameCityCapital", "Strategic", "NameMarine"], true];
-missionNamespace setVariable ["DEBUG", 						false];
+missionNamespace setVariable ["DEBUG", 						false]; // kind've deprecated: systemChat can be used for debugging, DS will just ignore it as server.
 missionNamespace setVariable ["SECTOR_RECAP_RANGE", 		100]; // Meters from the center of the sector for a BG to begin recapturing the point.
 missionNamespace setVariable ["SECTOR_RECAP_TIME", 			900]; // Time in seconds for a battlegroup to recapture a point.
 missionNamespace setVariable ["SECTOR_STRAGGLER_CUTOFF",    120]; // Per the first unit showing up at the sector, Time in seconds stragglers have to show up inside the sector's recap range before being deleted.
 missionNamespace setVariable ["SECTOR_RECAP_SIZE",          500]; // Area of inclusivity in regards to recapturing a sector.
-
 missionNamespace setVariable ["LOGI_POINT_CLASSNAME",       "USMC_WarfareBVehicleServicePoint", true]; // className for our logi point
-
-missionNamespace setVariable ["STARTING_CIV_REP", 100]; // Starting civ rep
+missionNamespace setVariable ["STARTING_CIV_REP", 100]; // Starting civ rep | 0-100
 missionNamespace setVariable ["STARTING_FUNDING", 100000000]; // Starting funding: 100mil
 missionNamespace setVariable ["RESUPPLY_INTERVAL_SECONDS", 1600, true]; // Interval until any role leader can grab a new crate.
+missionNamespace setVariable ["VEHICLE_YARD_CENTER", [2344.19,4774.02,0], true]; // CENTER OF THE RESPAWN YARD
+missionNamespace setVariable ["VEHICLE_YARD_RADIUS", 80, true]; // RADIUS OF THE RESPAWN YARD
+missionNamespace setVariable ["ENEMY_SIDE", east, true]; // Side Of General Enemy
+missionNamespace setVariable ["FRIENDLY_SIDE", west, true]; // Side Of friendlies
+missionNamespace setVariable ["RESISTANCE_IS_FRIENDLY", false, true]; // Restance is friendly
 missionNamespace setVariable ["ZEUS_LOGISTICS_SUPPLIES_CLASSES", [
     "CargoNet_01_box_F",
     "CargoNet_01_barrels_F"
 ], true];
 
-missionNamespace setVariable ["VEHICLE_YARD_CENTER", [2344.19,4774.02,0], true]; // CENTER OF THE RESPAWN YARD
-missionNamespace setVariable ["VEHICLE_YARD_RADIUS", 80, true]; // RADIUS OF THE RESPAWN YARD
-
-missionNamespace setVariable ["ENEMY_SIDE", east, true]; // Side Of General Enemy
-missionNamespace setVariable ["FRIENDLY_SIDE", west, true]; // Side Of friendlies
-missionNamespace setVariable ["RESISTANCE_IS_FRIENDLY", false, true]; // Restance is friendly
+/////// SPAWNS ///////////////////////////////////
 
 missionNamespace setVariable ["ISRC_ENEMY_BATTLEGROUP", createHashMapFromArray [
 	[
@@ -294,8 +291,12 @@ missionNamespace setVariable ["ISRC_civilian_vehicles", [
     "UK3CB_TKC_C_Ikarus" // 3CB - end
 ], true];
 
+/////// END SPAWNS ///////////////////////////////
+
+// For BG's, technically deprecated.
 missionNamespace setVariable ["ISRC_transport_truck", "rhsgref_ins_ural", true];
 
+// For BG's, technically deprecated.
 missionNamespace setVariable ["ISRC_transport_troops", [
     "rhs_vdv_flora_efreitor", 
     "rhs_vdv_flora_sergeant", 
@@ -312,19 +313,26 @@ missionNamespace setVariable ["ISRC_transport_troops", [
     "rhs_vdv_flora_aa"
 ], true];
 
+// currency symbol to use for funding
 missionNamespace setVariable ["CURRENCY_SYMBOL", "$", true];
 
+/// FLP - Beginning of campaign
 missionNamespace setVariable ["STARTING_COP_LOCATION", [0,0,0], true]; // set to false for none, players will then have to purchase the initial FLP
 missionNamespace setVariable ["COP_DEPLOY_MOVE_PRICE", 100000, true];
 
+// Deprecated!
 missionNamespace setVariable ["SIDE_OP_HUMANITARIAN_ELAPSED_TIME", 1800, true];
 
+// classNames of IEDs
 missionNamespace setVariable ["IED_TYPES", ["IEDLandBig_F","IEDLandSmall_F","IEDUrbanBig_F","IEDUrbanSmall_F"], true];
 
+// Classnames of our "sam sites" - it's also battery/arty-capable. See "// Create SAM sites" for more info.
 missionNamespace setVariable ["ISRC_SAM_SITE", ["min_rf_sa_22", "sam_site"], true];
 
+// Areas in which to remove all terrain object (Deprecated).
 missionNamespace setVariable ["ISRC_TERRAIN_REMOVAL_POINTS", []];
 
+// Patrols (Actually attack groups lol)
 missionNamespace setVariable ["ISRC_ENEMY_PATROLS", [
     [ // choice
         [ // team
@@ -361,12 +369,15 @@ missionNamespace setVariable ["ISRC_ENEMY_PATROLS", [
     ]
 ], true];
 
+/// Max-distance from $RESPAWN_LOCATION friendlies can be at which scripted arty will ignore them (QOL feature). 
 missionNamespace setVariable ["ARTY_CONTROLLER_FOB_BLACKLIST_RANGE", 800, true];
 
+/// Blacklists a rectangular area from being affected by the cleanup script.
 missionNamespace setVariable ["CLEANUP_WHITELIST_AREAS", [
     //[RESPAWN_LOCATION, 500, 500, 0, false]
 ]];
 
+/// Names of locations that should become pre-captured sectors
 missionNamespace setVariable ["ALREADY_CAPTURED", [
     "Coastal Zone - Alpha",
     "Coastal Zone - Bravo",
@@ -415,7 +426,12 @@ missionNamespace setVariable ["ALREADY_CAPTURED", [
     "Hajigak Iron Mine"
 ]];
 
+/// Names of locations that should never become sectors
+LOCATIONS_BLACKLIST = [];
+
 /*
 Notice: moved `LOGISTICS_SUPPLIES_CLASSES` to "initPlayerLocal.sqf"!
 Notice: removed `LOGISTICS_SUPPLIES_CLASSES` and all related features for now (ie: logistics)
 */
+
+call compileFinal preprocessFileLineNumbers "config\spawnopts.sqf";
