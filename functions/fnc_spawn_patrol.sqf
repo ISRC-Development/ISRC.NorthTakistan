@@ -43,7 +43,7 @@ private _patrol_teams = [];
 		sleep 5;
 		_x deleteGroupWhenEmpty true;
 		private _waypoint = _x addWaypoint [[0, 0, 0], -1];
-		_waypoint setWaypointPosition [[leader _x] call isrc_ufnc_getNearestEnemyToUnit, -1];
+		_waypoint setWaypointPosition [[leader _x, side leader _x] call isrc_ufnc_getNearestEnemyToUnit, -1];
 		_waypoint setWaypointType "SAD";
 		//_waypoint setWaypointName "";
 		//_waypoint setWaypointDescription "";

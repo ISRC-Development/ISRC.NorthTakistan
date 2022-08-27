@@ -133,6 +133,7 @@ if (_locationType != "NameMarine") then {
 };
 
 // Get a new, enemy-held point to fly in from. (last point will be the point that is proced) 
+// Leaving this alone for now because it's working fine.
 private _air_deployment = false;
 while {typeName _air_deployment == "BOOL"} do {
 	private _ld = selectRandom (call fnc_getAllLocations);

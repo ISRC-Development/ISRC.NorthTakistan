@@ -39,7 +39,7 @@ missionNamespace setVariable ['ISRC_MARKER_UPDATE_INTERVAL',30];  // Interval in
 missionNamespace setVariable ["LOCATION_TYPES", 			["NameLocal", "NameVillage", "NameCity", "NameCityCapital", "Strategic", "NameMarine"], true];
 missionNamespace setVariable ["DEBUG", 						false]; // kind've deprecated: systemChat can be used for debugging, DS will just ignore it as server.
 missionNamespace setVariable ["SECTOR_RECAP_RANGE", 		100]; // Meters from the center of the sector for a BG to begin recapturing the point.
-missionNamespace setVariable ["SECTOR_RECAP_TIME", 			900]; // Time in seconds for a battlegroup to recapture a point.
+missionNamespace setVariable ["SECTOR_RECAP_TIME", 			15]; // Time in seconds for a battlegroup to recapture a point.
 missionNamespace setVariable ["SECTOR_STRAGGLER_CUTOFF",    120]; // Per the first unit showing up at the sector, Time in seconds stragglers have to show up inside the sector's recap range before being deleted.
 missionNamespace setVariable ["SECTOR_RECAP_SIZE",          500]; // Area of inclusivity in regards to recapturing a sector.
 missionNamespace setVariable ["LOGI_POINT_CLASSNAME",       "USMC_WarfareBVehicleServicePoint", true]; // className for our logi point
@@ -294,7 +294,7 @@ missionNamespace setVariable ["ISRC_civilian_vehicles", [
 /////// END SPAWNS ///////////////////////////////
 
 // For BG's, technically deprecated.
-missionNamespace setVariable ["ISRC_transport_truck", "rhsgref_ins_ural", true];
+missionNamespace setVariable ["ISRC_transport_truck", "min_rf_truck_covered", true];
 
 // For BG's, technically deprecated.
 missionNamespace setVariable ["ISRC_transport_troops", [
@@ -424,7 +424,7 @@ missionNamespace setVariable ["ALREADY_CAPTURED", [
     "Garmarund",     
     "Radio Tower 044115",
     "Hajigak Iron Mine"
-]];
+], true];
 
 /// Names of locations that should never become sectors
 LOCATIONS_BLACKLIST = [];

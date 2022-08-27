@@ -785,6 +785,8 @@ fnc_getLocationByName = {
     _location
 };
 
+RECAPTURED_SECTORS = []; // ugly workaround
+
 fnc_establishSector = {
     params["_v"];
 
@@ -792,8 +794,8 @@ fnc_establishSector = {
     private _pos    = _v select 1;
     private _type   = _v select 2;
 
-    // Delete old marker if it exists
-    //deleteMarker ("marker_" + (hashValue _name));
+    //Delete old marker if it exists
+    deleteMarker ("marker_" + (hashValue _name));
 
     // If location type not in desired location types array then continue unless debugging
     //if (!(_type in LOCATION_TYPES) && !(DEBUG)) then {continue};
@@ -913,7 +915,7 @@ fnc_establishSector = {
     private _meanRad = [_radiusInfantry, _radiusVehicles, _radiusAir,  _radiusArmor] call BIS_fnc_geometricMean;
 
     // Create Sector if not already captured
-    if ( !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && !(_name in ALREADY_CAPTURED) ) then {
+    if ( ( !(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && !(_name in ALREADY_CAPTURED) ) || _name in RECAPTURED_SECTORS) then {
         
         _marker setMarkerColor "ColorRed";
 
@@ -1024,40 +1026,6 @@ fnc_getMarineLocations = {
     call fnc_GetAllLocations select {_x select 2 == "NameMarine"}
 };
 
-// `call fnc_getEnemySector` Returns enemy sector or false if none found.
-// `[true] call fnc_getEnemySector` Returns captured sector or false if none found.
-fnc_getEnemySector = {
-    params [["_getcapturedsector", false]];
-    private _deployment = false;
-    private _safeCheck  = 0;
-    if !(_getcapturedsector) then {
-        while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom (call fnc_getAllLocations);
-            private _name     = _location select 0;
-            if (!(_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []])) && (_location select 2) != "NameMarine") then {
-                _deployment = _location;
-            };
-            _safeCheck = _safeCheck + 1;
-            if (_safeCheck > 1024) then {
-                _deployment = false;
-            };
-        };        
-    } else {
-        while {typeName _deployment == "BOOL"} do {
-            private _location = selectRandom (call fnc_getAllLocations);
-            private _name     = _location select 0;
-            if (_name in (profileNamespace getVariable ["CAPTURED_SECTORS", []]) && (_location select 2) != "NameMarine") then {
-                _deployment = _location;
-            };
-            _safeCheck = _safeCheck + 1;
-            if (_safeCheck > 1024) then {
-                _deployment = false;
-            };
-        };       
-    };
-    _deployment
-};
-
 fnc_removeOne = {
     params ["_array", "_remove"];
     private _found = false;
@@ -1148,7 +1116,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
         
         sleep 10; // delay for local 3den testing
 
-        private _deployment = call fnc_getEnemySector;
+        private _deployment = call isrc_ufnc_getEnemySector;
 
         if (typeName _deployment == "BOOL") then { continue };
 
@@ -1202,18 +1170,19 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
         
         execVM "functions\server\fnc_spawn_high_value_target.sqf"; // HVT
 
-        if (count (profileNamespace getVariable ["CAPTURED_SECTORS", []]) > 0) then {
+        if (count (profileNamespace getVariable ["CAPTURED_SECTORS", []]) > 0 || count allPlayers > 0) then {
+            private _safe_pos = [
+                call isrc_ufnc_getEnemySector select 1,
+                3,
+                500,
+                3,
+                0,
+                20,
+                0
+            ] call BIS_fnc_findSafePos;
             private _args = [
-                [
-                    call fnc_getEnemySector select 1,
-                    3,
-                    500,
-                    3,
-                    0,
-                    20,
-                    0
-                ] call BIS_fnc_findSafePos, 
-                [true] call fnc_getEnemySector select 1, 
+                _safe_pos, 
+                [_safe_pos, EAST] call isrc_ufnc_getNearestEnemyToUnit, 
                 selectRandom[1200, 1500, 2000]
             ];
             if (!hasInterface && isServer) then { // Todo: Check if HC is available for patrol spawn // call fnc_HcOnline (untested)
@@ -1324,6 +1293,10 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
 // Also spawns BG's 
 [] spawn {
 
+    sleep 15; // delay for local 3den testing
+
+    ["create_battlegroup", []] call fnc_new_HC_job;
+
     // sleep 1 hour
     sleep 350;
 
@@ -1343,7 +1316,6 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
     ]] remoteExec ["BIS_fnc_showNotification"];
 
     sleep (selectRandom [3600, 3600, 3000, 3000, 2500, 2800]);
-    //["create_battlegroup", []] call fnc_new_HC_job;
 
 };
 
