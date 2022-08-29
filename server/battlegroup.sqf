@@ -1,5 +1,9 @@
 if !(isServer) exitWith {};
 
+if (count allPlayers < BLUFOR_ACTIVATION_COUNT) exitWith {
+	diag_log "Not enough players to activate battlegroups, skipping...";
+};
+
 if (count (profileNamespace getVariable ["CAPTURED_SECTORS", []]) == 0 ) exitWith {
 	systemChat "[SERVER] No sectors captured yet, battlegroups are not forming yet.";
 };
@@ -36,22 +40,6 @@ systemChat format ["[SERVER] Battlegroup formation point found at %1", _group_po
 
 private _bg_groups = [];
 
-private _infantryManager = [
-	// [_unit, _spawnPos], ...
-];
-
-/*
-// Spawn Infantry
-private _infantry_choices = ISRC_ENEMY_BATTLEGROUP get "infantry";
-for "_i" from 1 to random (ISRC_ENEMY_BATTLEGROUP_WEIGHTS get "infantry") do {
-	private _unit = _group createUnit [selectRandom _infantry_choices, _group_pos, [], 0, "NONE"];
-	//_unit setVectorUp surfaceNormal (getposATL _unit);	
-	[_unit] call fnc_setRandomIdentity;
-	//[_unit] call fnc_freezefix;
-	_infantryManager pushBack [_unit, getPos _unit];
-};
-*/
-
 // Spawn Vehicles
 for "_i" from 1 to random (ISRC_ENEMY_BATTLEGROUP_WEIGHTS get "vehicle") do {
 	private _group = createGroup ENEMY_SIDE;
@@ -64,7 +52,7 @@ for "_i" from 1 to random (ISRC_ENEMY_BATTLEGROUP_WEIGHTS get "vehicle") do {
 
 // Spawn Armor
 for "_i" from 1 to random (ISRC_ENEMY_BATTLEGROUP_WEIGHTS get "armor") do {
-	private _group = createGroup ENEMY_SIDE;
+	private _group    = createGroup ENEMY_SIDE;
 	private _vehclass = selectRandom (ISRC_ENEMY_BATTLEGROUP get "armor");
 	private _veh 	  = _vehclass createVehicle ([_group_pos, 3, 250, 3, 0, 20, 0] call BIS_fnc_findSafePos);
 	[_veh] call fnc_cleanVehicle;
@@ -91,7 +79,7 @@ for "_i" from 0 to (selectRandom [1, 2, 3]) do {
 	_marker setMarkerType "loc_Attack";
 	_marker setMarkerColor "ColorRed";
 	_marker setMarkerSize [2, 2];
-	sleep 60;
+	sleep 120;
 	deleteMarker _marker;
 };
 
