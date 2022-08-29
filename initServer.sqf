@@ -16,6 +16,21 @@ call compileFinal preprocessFileLineNumbers "client\experiments\electronic_warfa
 
 missionNamespace setVariable ["MANAGED_PURCHASED_VEHICLES", []];
 
+// ["sector name"] remoteExec ["dbg_fnc_removeFromCapturedSectors", 2];
+dbg_fnc_removeFromCapturedSectors = {
+    params["_name"];
+    private _sectors = profileNamespace getVariable ["CAPTURED_SECTORS", []];
+    profileNamespace setVariable ["CAPTURED_SECTORS", _sectors - [_name]];
+    saveprofilenamespace;
+};
+
+dbg_fnc_addToCapturedSectors = {
+    params["_name"];
+    private _sectors = profileNamespace getVariable ["CAPTURED_SECTORS", []];
+    profileNamespace setVariable ["CAPTURED_SECTORS", _sectors + [_name]];
+    saveprofilenamespace;
+};
+
 fnc_HcOnline = {
     private _online = false;
     {
@@ -522,6 +537,10 @@ _server_fps_marker setMarkerType "loc_Box";
 _server_units_marker = createMarker ["server_units_marker", [0, 1200, 0]];
 _server_units_marker setMarkerColor "ColorGreen";
 _server_units_marker setMarkerType "loc_download";
+
+_total_units_marker = createMarker ["total_units_marker", [0, 1000, 0]];
+_total_units_marker setMarkerColor "ColorWhite";
+_total_units_marker setMarkerType "loc_Box";
 
 //////////////////// Dynamic Sectors
 
@@ -1158,7 +1177,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
 
         ["IntelRed", ["LANDSAT: New long-range threats discovered!"]] remoteExec ["BIS_fnc_showNotification"];
 
-		sleep 4000;
+		sleep 10000; // 2.77 hours
 	};
 };
 
@@ -1192,7 +1211,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
             };
         };
         
-        sleep selectRandom[900, 960, 800];
+        sleep selectRandom[1000, 1100, 1200];
     };
 };
 
@@ -1315,7 +1334,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
         format["Daily Funding: <br/>$%1", [_fundingCivRepCooefficient] call fnc_standardNotation]
     ]] remoteExec ["BIS_fnc_showNotification"];
 
-    sleep (selectRandom [3600, 3600, 3000, 3000, 2500, 2800]);
+    sleep (selectRandom [4000, 4500, 4000, 3000, 2500, 2800]);
 
 };
 
@@ -1332,8 +1351,8 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
 
 // Manages asset markers
 // Also tracks player count
-[_server_fps_marker, _server_units_marker] spawn {
-    params["_server_units_marker", "_server_fps_marker"];
+[_server_fps_marker, _server_units_marker, _total_units_marker] spawn {
+    params["_server_units_marker", "_server_fps_marker", "_total_units_marker"];
     while {true} do{
 
         // Asset Markers
@@ -1356,7 +1375,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
         private _units = 0;
         {if (local _x) then {_units = _units + 1}} forEach allUnits;
         _server_units_marker setMarkerText format["Server Units: %1", _units];
-
+        _total_units_marker setMarkerText format["Total Units: %1", count allUnits];
         sleep ISRC_MARKER_UPDATE_INTERVAL;
     };
 };

@@ -192,7 +192,36 @@ fnc_new_HC_job = {
 					_vehicle 	   = _classname createVehicle ([_pos, 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos);
 				};			
 			};
+			
 			private _crew      = createVehicleCrew _vehicle;
+
+			if (_classname == ISRC_transport_rotary) then {
+				private _para_group = group driver _vehicle;
+				{
+					private _unit = _para_group createUnit [
+						_x,
+						[[0, 0, 0], 1, 50, 2, 0, 30, 0] call BIS_fnc_findSafePos,
+						[],
+						0,
+						"NONE"
+					];
+					_unit moveInAny _vehicle;
+				} forEach ISRC_paras;
+				private _waypoint = _para_group addWaypoint [[0, 0, 0], -1];
+				_waypoint setWaypointPosition [[_pos, side leader _para_group] call isrc_ufnc_getNearestEnemyToUnit, -1];
+				_waypoint setWaypointType "MOVE";
+				_waypoint setWaypointName "ISRC Paradrop";
+				_waypoint setWaypointDescription "";
+				_waypoint setWaypointFormation "NO CHANGE";
+				_waypoint setWaypointBehaviour "UNCHANGED";
+				_waypoint setWaypointCombatMode "RED";
+				_waypoint setWaypointSpeed "FULL";
+				//_waypoint setWaypointTimeout [0,0,0];
+				_waypoint setWaypointCompletionRadius 50;
+				_waypoint setWaypointStatements ["true",""];
+				_waypoint setWaypointScript "\x\zen\addons\ai\functions\fnc_waypointParadrop.sqf []";
+				_patrol = [];
+			};
 
 			// Review 
 			if (_classname == "min_rf_Mortar") then {

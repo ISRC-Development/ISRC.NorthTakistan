@@ -32,21 +32,6 @@ ASSET_PRICE ctrlSetPosition [0.25, 0];
 ASSET_PRICE ctrlSetText "Price: ";
 ASSET_PRICE ctrlCommit 0;
 
-MAP_PREVIEW = _display ctrlCreate ["RscMapControl", -1, ASSET_LISTBOX];
-MAP_PREVIEW ctrlSetPosition [0.45, 0.1, 0.3, 0.15];
-MAP_PREVIEW ctrlMapSetPosition [0.45, 0.1, 0.3, 0.15];
-MAP_PREVIEW ctrlMapAnimAdd [0, 0.01, getPos player];
-ctrlMapAnimCommit MAP_PREVIEW;
-[] spawn {
-	private _marker = createMarkerLocal ["mkr_build_menu", [player, 15] call fnc_inFrontOf];
-	_marker setMarkerTypeLocal "mil_end";
-	_marker setMarkerColorLocal "ColorRed";
-	sleep 10;	
-	deleteMarkerLocal _marker;
-};
-MAP_PREVIEW ctrlMapCursor ["", "3DEN"]; //<-- the actual usage
-MAP_PREVIEW ctrlCommit 0; 
-
 /*
 ASSET_TYPE = _display ctrlCreate ["RscText", (count PURCHASE_MENU_ITEMS) + 4, ASSET_LISTBOX];
 ASSET_TYPE ctrlSetPosition [0, 0.1];
@@ -173,8 +158,11 @@ _ctrlButton ctrlAddEventHandler ["ButtonClick",
 		[_vehicle] execVM "functions\global\fnc_initAssetAppearance.sqf";  
 
 		[_vehicle] remoteExec ["fnc_purchaseVehicle", 2];
+
+		["IntelGreen", [format["HQ: %1 purchased for %2.", [_class] call fnc_getDisplyName, [_price, true] call fnc_standardNumericalNotationString]]] remoteExec ["BIS_fnc_showNotification"];
+
 	} else {
-		hint format["Insufficient Funds To Purchase %1!", _name];
+		hint format["Insufficient Funds To Purchase %1!", [_class] call fnc_getDisplyName];
 		break;
 	};
 		

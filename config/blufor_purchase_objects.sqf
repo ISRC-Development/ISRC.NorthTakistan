@@ -17,6 +17,7 @@ ISRC_BUILDABLE_OBJECTS = [
 	[
 		"Facilities",
 		[
+			["Tent", "Land_MedicalTent_01_white_generic_outer_F", 1000],
 			["Raid Shelter", "Land_Bunker_02_light_left_F", 100000]
 		]
 	],

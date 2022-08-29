@@ -282,6 +282,7 @@ if !([_m, "Headless Client: Manage Group", {
 	systemChat "[Bishop] Failed to add Zeus module feature: Manage Group";
 };
 
+/*
 if !([_m, "Misc: Create Suicide Bomber", {
 		_zen_pos    = _this select 0;
 		_zen_target = _this select 1;
@@ -296,6 +297,7 @@ if !([_m, "Misc: Create Suicide Bomber", {
 }, "\a3\modules_f\data\iconTaskCreate_ca.paa"] call zen_custom_modules_fnc_register) then {
 	systemChat "[Bishop] Failed to add Zeus module feature: Misc: Create Suicide Bomber";
 };
+*/
 
 /*
 if !([_m, "Misc: Managed Mortar Team", {
@@ -312,13 +314,7 @@ if !([_m, "Misc: Managed Mortar Team", {
 };
 */
 
-
-
-
 // Icons: pbo: X:\Steam\steamapps\common\Arma 3\Addons\modules_f_data.pbo
-
-
-
 
 if !([_m, "Dev: Adjust Funding", {
 	if !(["Bishop: Global Intel",

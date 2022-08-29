@@ -129,7 +129,6 @@ if (_locationType != "NameMarine") then {
 			[_triggerpos, _vehicleRadius]
 		]] call fnc_new_HC_job;	
 	};
-
 };
 
 // Get a new, enemy-held point to fly in from. (last point will be the point that is proced) 
@@ -156,7 +155,6 @@ for "_i" from 0 to _airAmount do
 		[_triggerpos, _airRadius]
 	]] call fnc_new_HC_job;	
 };
-
 
 sleep ISRC_CAPTURING_ACCOUNTING_DELAY;
 private _units = (_triggerpos nearEntities [["Man", "Car", "Air", "Motorcycle", "Tank", "Turret", "Truck", "Ship", "Boat"], _airRadius * 1.5]) select { side _x == ENEMY_SIDE || (RESISTANCE_IS_FRIENDLY == false && side _x == resistance)};
