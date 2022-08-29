@@ -1141,8 +1141,10 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
 
         private _sstype = selectRandom ISRC_SAM_SITE;
 
+        private _samCount = missionNamespace getVariable "SAM_COUNT";
+
         // Pancir 
-        if ("min_rf_sa_22" in _sstype) then {
+       /* if ("min_rf_sa_22" in _sstype) then {
             private _ppos = [_deployment select 1, 1, selectRandom[250, 300, 500], 5, 0, 25, 0, [], []] call BIS_fnc_findSafePos;
             ["spawn_crewed_vehicle", [
                 "min_rf_sa_22",
@@ -1151,12 +1153,13 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
                 []
             ]] call fnc_new_HC_job;	
             [_ppos, "Unknown AA", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;
-        };
+        };*/
 
         // S-750 Rhea SAM/Radar/Net
-        if ("sam_site" in _sstype) then {
+        if ("sam_site" in _sstype && _samCount < 2) then {
             [_deployment select 1] execVM "functions\server\fnc_build_sam_site.sqf";       
-            [_deployment select 1, "SAM Site", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker;     
+            [_deployment select 1, "SAM Site", "ColorBlack", "mil_warning", true, [0.5, 0.5]] call fnc_marker; 
+            _samCount = _samCount + 1;    
         };
 
         // BM-21 Arty
@@ -1177,6 +1180,7 @@ if !(FOB_CHARLIE_LOCATION isEqualTo [0, 0, 0]) then {
 
         ["IntelRed", ["LANDSAT: New long-range threats discovered!"]] remoteExec ["BIS_fnc_showNotification"];
 
+        missionNamespace setVariable ["SAM_COUNT", _samCount];
 		sleep 10000; // 2.77 hours
 	};
 };
