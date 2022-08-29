@@ -1,3 +1,3 @@
 # ISRC.NorthTakistan
 
-I'm open-sourcing my liberation gamemode!
+Open source fork of ISRC.NorthTakistan from hostinfodev for use on the ISRC server.
