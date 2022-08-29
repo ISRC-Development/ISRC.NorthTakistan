@@ -20,6 +20,12 @@ private _sam = "O_SAM_System_04_F" createVehicle _safe_pos;
 	true
 ] call BIS_fnc_initVehicle;
 
+_sam addMPEventHandler ["MPKilled ",{
+	private _samCount = missionNamespace getVariable "SAM_COUNT";
+	_samCount = _samCount - 1;
+	missionNamespace setVariable ["SAM_COUNT", _samCount]
+}];
+
 createVehicleCrew _sam;
 _sam setVariable ["IS_PROP", true];
 

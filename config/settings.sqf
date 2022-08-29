@@ -34,7 +34,7 @@ missionNamespace setVariable ['FOB_CHARLIE_LOCATION',       [0,0,0], true]; // [
 missionNamespace setVariable ['CLEANUP_INTERVAL',       	500]; //  Interval in seconds to run cleanup
 missionNamespace setVariable ['MAX_CIV_POP_PEDS',       	3, true]; //  Max number of pedestrians that can be spawned in a sector
 missionNamespace setVariable ['MAX_CIV_POP_TRAFFIC',    	3, true]; //  Max number of motorists that can be spawned in a sector
-missionNamespace setVariable ['BLUFOR_ACTIVATION_COUNT',    4]; // Number of Blufor units needed in any sector to activate it, also min players online to activate BG's.
+missionNamespace setVariable ['BLUFOR_ACTIVATION_COUNT',    4]; // Number of Blufor players units needed in any sector to activate it, also min players online to activate BG's.
 missionNamespace setVariable ['ISRC_MARKER_UPDATE_INTERVAL',30];  // Interval in seconds to update the asset markers and server FPS counter 
 missionNamespace setVariable ["LOCATION_TYPES", 			["NameLocal", "NameVillage", "NameCity", "NameCityCapital", "Strategic", "NameMarine"], true];
 missionNamespace setVariable ["DEBUG", 						false]; // kind've deprecated: systemChat can be used for debugging, DS will just ignore it as server.
@@ -55,6 +55,7 @@ missionNamespace setVariable ["ZEUS_LOGISTICS_SUPPLIES_CLASSES", [
     "CargoNet_01_box_F",
     "CargoNet_01_barrels_F"
 ], true];
+missionNamespace setVariable ["SAM_COUNT", 0]
 
 /////// SPAWNS ///////////////////////////////////
 
@@ -294,7 +295,7 @@ missionNamespace setVariable ["ISRC_civilian_vehicles", [
 
 /////// END SPAWNS ///////////////////////////////
 
-// For BG's
+// For BG's, technically deprecated.
 missionNamespace setVariable ["ISRC_transport_truck", "min_rf_truck_covered", true];
 
 // For paradrops
